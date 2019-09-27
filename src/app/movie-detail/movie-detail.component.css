@@ -1,0 +1,63 @@
+.movie-container {
+  color: white;
+  font-family: 'Lato', sans-serif;
+  height: 600px;
+}
+
+.movie-image {
+  margin-left: 120px;
+  margin-top: 60px;
+}
+
+.movie-title {
+  margin-top: 40px;
+}
+
+.release-year {
+  color: gray;
+  font-size: 28px;
+}
+
+.save-actions {
+  margin-top: 35px;
+}
+
+.glyphicon {
+  margin-left: 40px;
+  font-size: 25px;
+}
+
+.overview-header {
+  margin-top: 65px;
+}
+.overview-body {
+  font-size: 18px;
+  line-height: 1.75em;
+  margin-top: 20px;
+  margin-right: 80px;
+}
+
+.movie-metadata {
+  margin-top: 200px;
+  font-size: 18px;
+  color: rgb(189, 189, 189);
+}
+
+
+.runtime, .original-language, .genres {
+  margin-top: 45px;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  
+  background: #fff;
+  border: 2px solid #666;
+  color: #666;
+  text-align: center;
+  
+  font: 32px Arial, sans-serif;
+}

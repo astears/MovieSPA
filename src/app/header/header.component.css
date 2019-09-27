@@ -1,0 +1,54 @@
+.navbar-default {
+  min-height: 135px;
+  background-color: rgb(26, 30, 39);
+  font-family: 'Comfortaa', cursive;
+  margin-bottom: 0px;
+}
+.navbar-header a {
+  color: #73AD21;
+  font-size: 20px;
+}
+
+.nav.navbar-nav li a{
+  color: white !important;
+  font-size: 20px;
+}
+
+.navbar-nav, .navbar-brand {
+  margin-top: 40px;
+}
+
+.navContent {
+  padding-left: 115px;
+}
+
+.sub-headers {
+  font-size: 16px;
+  color: grey;
+}
+
+.searchBarDiv {
+  font-family: 'Comfortaa', cursive;
+  font-size: 20px;
+  margin-top: 0px;
+  min-height: 60px;
+  border-bottom: 1px solid lightgrey;
+
+}
+
+.movieSearchInput {
+  width: 70%;
+  min-height: 55px;
+  margin-left: 1%;
+  border: none;
+  padding-top: 10px;
+}
+
+input:focus{
+  outline: none;
+}
+
+.glyphicon-search {
+  padding-left: 160px;
+}
+

@@ -1,0 +1,91 @@
+.popularMovieContent {
+  padding-left: 10px;
+  padding-top: 30px;
+  font-family: 'Comfortaa', cursive;
+}
+
+.Title {
+  margin-bottom: 40px;
+}
+
+.titleWord1{
+  color: rgb(69, 168, 69);
+}
+
+.titleWord2{
+  color: black;
+}
+
+.outlinedDiv {
+  border-radius: 0;
+  background-color: white;
+  min-height: 278px;
+  max-height: 278px;
+  min-width: 700px;
+  max-width: 700px;
+}
+
+.movie-wrapper {
+  float: left;
+  margin-right: 5px;
+  margin-bottom: 35px;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05),
+   0 6px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+.movieImg {
+
+  min-height: 325;
+}
+
+.movie-body-wrapper {
+  height: 200px;
+  max-height: 230px;
+}
+
+.movieTitle {
+  margin-bottom: 5px;
+  font-size: 25px;
+  font-family: 'Lato', sans-serif;
+}
+
+.releaseDate {
+  padding-bottom: 20px;
+  color: gray;
+}
+
+.movieDescription {
+  padding-right: 10px;
+  font-size: 16px;
+  color: rgb(102, 100, 100);
+  font-family: 'Lato', sans-serif;
+}
+
+
+.more {
+  margin-top: 5px;
+  color: inherit
+}
+
+.more:focus {
+  outline: 0;
+}
+
+.line {
+  margin-top: 0px;
+  height: 1px;
+  border: none;
+  background-color: lightgray;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
+  max-height: 273px;
+  max-width: 182px;
+}
+
+.paginationNumber {
+  color: rgb(26, 30, 39);
+}

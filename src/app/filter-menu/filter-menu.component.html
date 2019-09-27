@@ -1,0 +1,50 @@
+<div class="filter-wrapper">
+    <div class="row">
+        <div class="col-sm-2">
+          <div app-dropdown class="btn-group">
+            <p>Year</p>
+            <button type="button" class="btn btn-lg btn-default dropdown-toggle yearButton"
+                data-toggle="dropdown">{{selectedYear === -1 ? 'None' : selectedYear}}<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu filter-dropdown">
+              <li *ngFor="let year of years">
+                <a (click)="onChangeYear($event)">{{year}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div app-dropdown class="btn-group">
+            <p>Sort By</p>
+            <button type="button" class="btn btn-lg btn-default dropdown-toggle"
+                data-toggle="dropdown">{{selectedSortBy}}<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu filter-dropdown">
+              <li *ngFor="let sortBy of sortByOptions">
+                <a (click)="onChangeSortBy($event)"
+                    [id]="sortBy.id">{{sortBy.option}}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-2">
+            <div app-dropdown class="btn-group">
+                <p>Genres</p>
+                <button type="button" class="btn btn-lg btn-default dropdown-toggle"
+                    data-toggle="dropdown">{{selectedGenre}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu filter-dropdown">
+                  <li *ngFor="let genre of genreInfo">
+                    <a (click)="onChangeGenre($event)"
+                        [id]="genre.id">
+                      {{genre.name}}</a>
+                  </li>
+                </ul>
+              </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="btn-group">
+              <button (click)="applyFilters()" type="button" class="btn btn-lg btn-success dropdown-toggle" style="margin-top: 29px">Search</button>
+          </div>
+        </div>
+    </div>
+  </div>

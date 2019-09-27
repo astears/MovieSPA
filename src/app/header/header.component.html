@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid navContent">
+      <div class="navbar-header">
+        <a class="navbar-brand" routerLink="/movies">zMovies</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <!--<li><a routerLink="/movies/discover" id="Discover_Movies" (click)="changeCategory($event)">Discover</a></li>-->
+          <li><a routerLink="/movies" id="Popular_Movies" (click)="changeCategory($event)">Popular Movies</a></li>
+          <li><a routerLink="/movies" id="Top_Rated_Movies" (click)="changeCategory($event)">Top Rated Movies</a></li>
+          <li><a routerLink="/movies" id="Upcoming_Movies" (click)="changeCategory($event)">Upcoming Movies</a></li>
+          <li><a routerLink="/movies" id="Now_Playing_Movies" (click)="changeCategory($event)">Now Playing Movies</a></li>
+        </ul>
+      </div>
+  </div>
+</nav>
+<div class="searchBarDiv">
+    <span class="glyphicon glyphicon-search"></span>
+    <input class="movieSearchInput" type="search" placeholder="search for a movie, tv show, person...">
+</div>
+
