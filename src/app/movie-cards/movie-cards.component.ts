@@ -3,8 +3,9 @@ import { MOVIEAPI } from "../constants/StringConstants";
 import { MovieLists } from '../enums/MovieListEnums';
 import { PageService } from '../services/page.service';
 import { MoviesService } from '../services/movies.service';
-import { IMovieDbQuery } from '../Models/IMovieDbQuery';
-import { IMovieResults } from '../Models/IMovieResults';
+import { MovieDbQuery } from '../Models/MovieDbQuery';
+import { MovieResults } from '../Models/MovieResults';
+import { FactoryService } from '../services/factory.service';
 
 @Component({
   selector: 'app-movie-cards-shows',
@@ -18,10 +19,9 @@ export class MovieCardsComponent implements OnInit {
   pagination: string[];
 
   constructor(private moviesService: MoviesService,
-    private pageService: PageService) { }
+    private pageService: PageService, private factoryService: FactoryService) { }
 
   ngOnInit() {
-    this.category = MovieLists.PopularMovies;
     this.subscribeToMovieChanges();
     this.initializeMovieSource();
 
@@ -29,7 +29,7 @@ export class MovieCardsComponent implements OnInit {
 
   private subscribeToMovieChanges() {
     this.moviesService.movieSource.subscribe(
-      (movies: IMovieResults) => {
+      (movies: MovieResults) => {
         this.movies = movies.results;
         this.category = movies.category;
         this.pagination = this.pageService.configurePagination(movies.totalPages);
@@ -52,12 +52,7 @@ export class MovieCardsComponent implements OnInit {
   }
 
   private initializeMovieSource() {
-    let query: IMovieDbQuery;
-
-    query.subcategory = MOVIEAPI.PopularMovies.subcategory;
-    query.hasFilters = false;
-    query.filter = null;
-    query.page = 1;
+    let query = this.factoryService.createMovieDbQuery(MOVIEAPI.Popular_Movies.apiParam, null, 1);
 
     this.moviesService.publishMovies(query);
   }

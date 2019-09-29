@@ -1,4 +1,4 @@
-export interface IMovieResults {
+export class MovieResults {
   results: any[];
   category: string;
   totalPages: number;

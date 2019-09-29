@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MovieLists } from '../enums/MovieListEnums';
 import { MoviesService } from '../services/movies.service';
+import { MOVIEAPI } from '../constants/StringConstants';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,16 @@ import { MoviesService } from '../services/movies.service';
 })
 export class HeaderComponent {
 
-  opencategorys: string = '';
+  private opencategorys: string = '';
+  private APIParams = MOVIEAPI;
 
   constructor(private searchMoviesService: MoviesService) {
   }
 
   changeCategory(event: MouseEvent) {
     let clickedCategory: string = (event.srcElement as Element).id;
-    this.searchMoviesService.changeMovieCategory(clickedCategory);
+    let apiValue = MOVIEAPI[clickedCategory].apiParam;
+    this.searchMoviesService.changeMovieCategory(apiValue);
   }
 
 }

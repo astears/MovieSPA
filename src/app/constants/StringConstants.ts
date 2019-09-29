@@ -8,21 +8,21 @@ export const SORT_BY_OPTIONS: {option: string, id: string}[] = [
   {option: 'Title (Z-A)', id: 'original_title.desc'}
 ]
 export const MOVIEAPI = {
-  "PopularMovies": {
+  "Popular_Movies": {
       "category": "movie",
-      "subcategory": "popular"
+      "apiParam": "popular"
   },
-  "TopRatedMovies": {
+  "Top_Rated_Movies": {
     "category": "movie",
-    "subcategory": "top_rated"
+    "apiParam": "top_rated"
   },
-  "NowPlayingMovies": {
+  "Now_Playing_Movies": {
     "category": "movie",
-    "subcategory": "now_playing"
+    "apiParam": "now_playing"
   },
-  "UpcomingMovies": {
+  "Upcoming_Movies": {
     "category": "movie",
-    "subcategory": "upcoming"
+    "apiParam": "upcoming"
   },
 };
 

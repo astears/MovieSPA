@@ -1,41 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
-import { PageService } from './page.service';
-import { IMovieResults } from 'src/app/Models/IMovieResults';
-import { IQueryFilter } from 'src/app/Models/IQueryFilter';
-import { IMovieDbQuery } from 'src/app/Models/IMovieDbQuery';
+import { MovieResults } from 'src/app/Models/MovieResults';
+import { QueryFilter } from 'src/app/Models/QueryFilter';
+import { MovieDbQuery } from 'src/app/Models/MovieDbQuery';
+import { FactoryService } from './factory.service';
+import { MOVIEAPI } from '../constants/StringConstants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
 
-  public movieSource = new Subject <IMovieResults>();
-  private activeCategory = "";
+  private API_PARAMS = MOVIEAPI;
+  public movieSource = new Subject <MovieResults>();
+  private activeCategory = this.API_PARAMS.Popular_Movies.apiParam;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private factoryService: FactoryService) {}
 
-  public publishMovies(query: IMovieDbQuery) : void {
-
-    let movies: IMovieResults;
+  public publishMovies(query: MovieDbQuery) : void {
+    let movies: MovieResults;
     let queryString = `https://api.themoviedb.org/3/movie/${query.subcategory}?api_key=fe154f97538186642f6f894b1181689f&language=en-US&page=${query.page}`;
 
-    if (query.hasFilters) {
+    if (query.filter !== null) {
       queryString = this.addQueryFilters(queryString, query.filter);
     }
 
     this.httpClient.get(queryString).subscribe(
-      (response: any) => {
-        movies.results = response.results;
-        movies.totalPages = response.total_pages;
-        movies.category = this.activeCategory;
-
+      (res: any) => {
+        movies = this.factoryService.createMovieResults(this.activeCategory, res.results, res.total_pages);
         this.movieSource.next(movies);
       });
   }
 
-  private addQueryFilters(queryString: string, filter: IQueryFilter) : string {
+  private addQueryFilters(queryString: string, filter: QueryFilter) : string {
 
     queryString += `&sort_by=${filter.sortBy}&include_adult=false&include_video=false`;
 
@@ -49,25 +47,15 @@ export class MoviesService {
     return queryString;
   }
 
-  public changeMovieCategory(subCategory: string) : void {
-    let query: IMovieDbQuery;
-    this.activeCategory = query.subcategory;
-
-    query.subcategory = subCategory;
-    query.hasFilters = false;
-    query.page = 1;
-    query.filter = null;
+  public changeMovieCategory(category: string) : void {
+    this.activeCategory = category;
+    let query = this.factoryService.createMovieDbQuery(category, null, 1);
 
     this.publishMovies(query);
   }
 
   public getMoviesWithPage(pageNumber: number) {
-    let query: IMovieDbQuery;
-
-    query.subcategory = this.activeCategory;
-    query.page = pageNumber;
-    query.hasFilters = false;
-    query.filter = null;
+    let query = this.factoryService.createMovieDbQuery(this.activeCategory, null, pageNumber);
 
     this.publishMovies(query);
   }
