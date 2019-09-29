@@ -10,7 +10,7 @@ export class PageService {
 
   constructor() { }
 
-  getPageNumber(paginationValue) {
+  public getPageNumber(paginationValue) : number {
     let pageNumber = -1;
 
     if (paginationValue === 'Previous') {
@@ -29,7 +29,7 @@ export class PageService {
     return pageNumber;
   }
 
-  configurePagination(maxPageNumber: number) {
+  public configurePagination(maxPageNumber: number) : string[] {
     let pagination = [];
 
     if (this.selectedPage >= 1 && this.selectedPage < 7) {

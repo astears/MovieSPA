@@ -16,7 +16,7 @@ export class HeaderComponent {
 
   changeCategory(event: MouseEvent) {
     let clickedCategory: string = (event.srcElement as Element).id;
-    this.searchMoviesService.changeCategory(clickedCategory);
+    this.searchMoviesService.changeMovieCategory(clickedCategory);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { GENRE_PLACEHOLDER, SORT_BY_OPTIONS } from '../constants/StringConstants';
+import { SORT_BY_OPTIONS } from '../constants/StringConstants';
 import { MoviesService } from '../services/search-movies-service/movies.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { MoviesService } from '../services/search-movies-service/movies.service'
 export class FilterMenuComponent implements OnInit {
 
   genreInfo: any[];
-  selectedGenre: string = GENRE_PLACEHOLDER;
+  selectedGenre: string = "Select Genre";
   selectedGenreId: string = '-1';
   sortByOptions: {option: string, id: string}[] = SORT_BY_OPTIONS;
   selectedSortBy: string = this.sortByOptions[0].option;

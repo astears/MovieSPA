@@ -1,5 +1,5 @@
 export interface IMovieResults {
-  results: {},
+  results: any[],
   category: string,
-  total_pages: number
+  totalPages: number
 }

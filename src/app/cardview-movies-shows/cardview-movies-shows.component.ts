@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from '../../../node_modules/rxjs';
+import { MOVIEAPI } from "../constants/StringConstants";
 import { MovieLists } from '../enums/MovieListEnums';
 import { PageService } from '../services/search-movies-service/page.service';
 import { MoviesService } from '../services/search-movies-service/movies.service';
+import { IMovieDbQuery } from '../Models/IMovieDbQuery';
+import { IMovieResults } from '../Models/IMovieResults';
 
 @Component({
   selector: 'app-cardview-movies-shows',
@@ -21,32 +23,43 @@ export class CardViewMoviesShowsComponent implements OnInit {
   ngOnInit() {
     this.category = MovieLists.PopularMovies;
     this.subscribeToMovieChanges();
-    this.moviesService.getMoviesByCategory(this.category, this.pageService.selectedPage);
+    this.initializeMovieSource();
 
   }
 
-  subscribeToMovieChanges() {
-    this.moviesService.movies.subscribe(
-      (movies: any) => {
+  private subscribeToMovieChanges() {
+    this.moviesService.movieSource.subscribe(
+      (movies: IMovieResults) => {
         this.movies = movies.results;
         this.category = movies.category;
-        this.pagination = this.pageService.configurePagination(movies.total_pages);
+        this.pagination = this.pageService.configurePagination(movies.totalPages);
       }
     );
   }
 
-  changePage(event: MouseEvent) {
+  private changePage(event: MouseEvent) {
 
-    let pageNumber: number;
-    pageNumber = this.pageService.getPageNumber((event.srcElement as Element).textContent);
+    let pageNumber = this.pageService.getPageNumber((event.srcElement as Element).textContent);
 
     this.pageService.selectedPage = pageNumber;
-    this.moviesService.getMoviesByCategory(this.category, this.pageService.selectedPage);
+
+    this.moviesService.getMoviesWithPage(this.pageService.selectedPage);
 
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
+  }
+
+  private initializeMovieSource() {
+    let query: IMovieDbQuery;
+
+    query.subcategory = MOVIEAPI.PopularMovies.subcategory;
+    query.hasFilters = false;
+    query.filter = null;
+    query.page = 1;
+
+    this.moviesService.publishMovies(query);
   }
 
 }
