@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MOVIEAPI } from "../constants/StringConstants";
 import { MovieLists } from '../enums/MovieListEnums';
-import { PageService } from '../services/search-movies-service/page.service';
-import { MoviesService } from '../services/search-movies-service/movies.service';
+import { PageService } from '../services/page.service';
+import { MoviesService } from '../services/movies.service';
 import { IMovieDbQuery } from '../Models/IMovieDbQuery';
 import { IMovieResults } from '../Models/IMovieResults';
 
 @Component({
-  selector: 'app-cardview-movies-shows',
-  templateUrl: './cardview-movies-shows.component.html',
-  styleUrls: ['./cardview-movies-shows.component.css']
+  selector: 'app-movie-cards-shows',
+  templateUrl: './movie-cards.component.html',
+  styleUrls: ['./movie-cards.component.css']
 })
-export class CardViewMoviesShowsComponent implements OnInit {
+export class MovieCardsComponent implements OnInit {
 
   category: string;
   movies: any[] = [];

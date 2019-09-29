@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { CardViewMoviesShowsComponent } from './cardview-movies-shows/cardview-movies-shows.component';
+import { MovieCardsComponent } from './movie-cards/movie-cards.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { FilterMenuComponent } from './filter-menu/filter-menu.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -18,7 +18,7 @@ import { LimitArraySizePipe } from './pipes/limit-array-size.pipe';
 import { DropdownDirective } from './directives/dropdown.directive';
 
 const appRoutes: Routes = [
-  {path: 'movies', component: CardViewMoviesShowsComponent,
+  {path: 'movies', component: MovieCardsComponent,
     children: [{path: 'discover', component: FilterMenuComponent}]
   },
   {path: 'movie-detail/:id', component: MovieDetailComponent, pathMatch: 'full'},
@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
-    CardViewMoviesShowsComponent,
+    MovieCardsComponent,
     FormatHeaderPipe,
     TruncateOverviewPipe,
     LimitArraySizePipe,

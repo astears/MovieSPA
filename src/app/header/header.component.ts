@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MovieLists } from '../enums/MovieListEnums';
-import { MoviesService } from '../services/search-movies-service/movies.service';
+import { MoviesService } from '../services/movies.service';
 
 @Component({
   selector: 'app-header',

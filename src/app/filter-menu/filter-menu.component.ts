@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { SORT_BY_OPTIONS } from '../constants/StringConstants';
-import { MoviesService } from '../services/search-movies-service/movies.service';
+import { MoviesService } from '../services/movies.service';
+import { IMovieDbQuery } from '../Models/IMovieDbQuery';
+import { IQueryFilter } from '../Models/IQueryFilter';
 
 @Component({
   selector: 'app-filter-menu',
@@ -9,7 +11,7 @@ import { MoviesService } from '../services/search-movies-service/movies.service'
 })
 export class FilterMenuComponent implements OnInit {
 
-  genreInfo: any[];
+  genres: any[];
   selectedGenre: string = "Select Genre";
   selectedGenreId: string = '-1';
   sortByOptions: {option: string, id: string}[] = SORT_BY_OPTIONS;
@@ -34,9 +36,9 @@ export class FilterMenuComponent implements OnInit {
   }
 
   getGenres() {
-    this.moviesService.getMovieGenres().subscribe(
+    this.moviesService.getAllGenres().subscribe(
       (data: any) => {
-        this.genreInfo = data.genres;
+        this.genres = data.genres;
       }
     );
   }
@@ -61,14 +63,19 @@ export class FilterMenuComponent implements OnInit {
   }
 
   applyFilters() {
-    let pageNumber = 1;
+    let query: IMovieDbQuery;
+    let filter: IQueryFilter;
 
-    let filter= {
-      year: this.selectedYear,
-      genre: this.selectedGenreId,
-      sortBy: this.selectedSortById
-    }
-    this.moviesService.filterMovies(filter);
+    filter.genre = this.selectedGenreId;
+    filter.sortBy = this.selectedSortById;
+    filter.year = this.selectedYear;
+
+    query.subcategory = this.moviesService.getActiveCategory();
+    query.hasFilters = true;
+    query.page = 1;
+    query.filter = filter;
+
+    this.moviesService.publishMovies(query);
   }
 
 }

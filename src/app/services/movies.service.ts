@@ -14,10 +14,7 @@ export class MoviesService {
   public movieSource = new Subject <IMovieResults>();
   private activeCategory = "";
 
-
   constructor(private httpClient: HttpClient) {}
-
-
 
   public publishMovies(query: IMovieDbQuery) : void {
 
@@ -75,5 +72,16 @@ export class MoviesService {
     this.publishMovies(query);
   }
 
+  public getMovieDetails(id: number) {
+    return this.httpClient.get(`https://api.themoviedb.org/3/movie/${id}?api_key=fe154f97538186642f6f894b1181689f&language=en-US`);
+  }
+
+  public getAllGenres() {
+    return this.httpClient.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=fe154f97538186642f6f894b1181689f&language=en-US`);
+  }
+
+  public getActiveCategory() {
+    return this.activeCategory;
+  }
 
 }

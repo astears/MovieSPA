@@ -33,7 +33,7 @@
                     data-toggle="dropdown">{{selectedGenre}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu filter-dropdown">
-                  <li *ngFor="let genre of genreInfo">
+                  <li *ngFor="let genre of genres">
                     <a (click)="onChangeGenre($event)"
                         [id]="genre.id">
                       {{genre.name}}</a>
