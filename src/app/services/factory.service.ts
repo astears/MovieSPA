@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MovieDbQuery } from '../Models/MovieDbQuery';
 import { MovieResults } from '../Models/MovieResults';
 import { QueryFilter } from '../Models/QueryFilter';
+import { NewCollectionDto } from '../DTOs/NewCollectionDto';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class FactoryService {
     filter.year = year;
 
     return filter;
+  }
+
+  public createNewCollectionDto(uid: number, name: string, desc: string) {
+    return new NewCollectionDto(uid, name, desc);
   }
 }

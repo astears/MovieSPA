@@ -4,6 +4,7 @@ import { MoviesService } from '../services/movies.service';
 import { MovieDbQuery } from '../Models/MovieDbQuery';
 import { QueryFilter } from '../Models/QueryFilter';
 import { FactoryService } from '../services/factory.service';
+import { PageService } from '../services/page.service';
 
 @Component({
   selector: 'app-filter-menu',
@@ -21,7 +22,8 @@ export class FilterMenuComponent implements OnInit {
   years: any[] = [];
   selectedYear: number = -1;
 
-  constructor(private moviesService: MoviesService, private factoryService: FactoryService) { }
+  constructor(private moviesService: MoviesService,
+    private factoryService: FactoryService, private pageService: PageService) { }
 
   ngOnInit() {
     this.getGenres();
@@ -64,8 +66,9 @@ export class FilterMenuComponent implements OnInit {
   }
 
   applyFilters() {
+    this.pageService.selectedPage = 1;
     let filter = this.factoryService.createQueryFilter(this.selectedGenreId, this.selectedSortById, this.selectedYear);
-    let query = this.factoryService.createMovieDbQuery(this.moviesService.getActiveCategory(), filter, 1);
+    let query = this.factoryService.createMovieDbQuery(this.moviesService.getActiveCategory(), filter, this.pageService.selectedPage);
 
     this.moviesService.publishMovies(query);
   }

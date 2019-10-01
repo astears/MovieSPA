@@ -10,8 +10,8 @@ import { MoviesService} from '../services/movies.service';
 export class MovieDetailComponent implements OnInit {
 
   private movieId: number;
-  private movie: any = {};
-  private backgroundStyle: any = {};
+  movie: any = {};
+  backgroundStyle: any = {};
 
   constructor(private routes: ActivatedRoute,
               private moviesService: MoviesService){ }

@@ -6,6 +6,7 @@ import { QueryFilter } from 'src/app/Models/QueryFilter';
 import { MovieDbQuery } from 'src/app/Models/MovieDbQuery';
 import { FactoryService } from './factory.service';
 import { MOVIEAPI } from '../constants/StringConstants';
+import { PageService } from './page.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class MoviesService {
   public movieSource = new Subject <MovieResults>();
   private activeCategory = this.API_PARAMS.Popular_Movies.apiParam;
 
-  constructor(private httpClient: HttpClient, private factoryService: FactoryService) {}
+  constructor(private httpClient: HttpClient,
+    private factoryService: FactoryService, private pageService: PageService) {}
 
   public publishMovies(query: MovieDbQuery) : void {
     let movies: MovieResults;
@@ -48,13 +50,15 @@ export class MoviesService {
   }
 
   public changeMovieCategory(category: string) : void {
+    this.pageService.selectedPage = 1;
     this.activeCategory = category;
-    let query = this.factoryService.createMovieDbQuery(category, null, 1);
+    let query = this.factoryService.createMovieDbQuery(category, null, this.pageService.selectedPage);
 
     this.publishMovies(query);
   }
 
   public getMoviesWithPage(pageNumber: number) {
+    this.pageService.selectedPage = pageNumber;
     let query = this.factoryService.createMovieDbQuery(this.activeCategory, null, pageNumber);
 
     this.publishMovies(query);

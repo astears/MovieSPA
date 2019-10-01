@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MOVIEAPI } from "../constants/StringConstants";
-import { MovieLists } from '../enums/MovieListEnums';
 import { PageService } from '../services/page.service';
 import { MoviesService } from '../services/movies.service';
 import { MovieDbQuery } from '../Models/MovieDbQuery';
@@ -14,14 +13,15 @@ import { FactoryService } from '../services/factory.service';
 })
 export class MovieCardsComponent implements OnInit {
 
-  category: string;
-  movies: any[] = [];
-  pagination: string[];
+  public category: string;
+  public movies: any[] = [];
+  public pagination: string[];
 
   constructor(private moviesService: MoviesService,
     private pageService: PageService, private factoryService: FactoryService) { }
 
   ngOnInit() {
+    this.category = this.moviesService.getActiveCategory();
     this.subscribeToMovieChanges();
     this.initializeMovieSource();
 
@@ -40,10 +40,7 @@ export class MovieCardsComponent implements OnInit {
   private changePage(event: MouseEvent) {
 
     let pageNumber = this.pageService.getPageNumber((event.srcElement as Element).textContent);
-
-    this.pageService.selectedPage = pageNumber;
-
-    this.moviesService.getMoviesWithPage(this.pageService.selectedPage);
+    this.moviesService.getMoviesWithPage(pageNumber);
 
     window.scrollTo({
       top: 0,
@@ -52,7 +49,7 @@ export class MovieCardsComponent implements OnInit {
   }
 
   private initializeMovieSource() {
-    let query = this.factoryService.createMovieDbQuery(MOVIEAPI.Popular_Movies.apiParam, null, 1);
+    let query = this.factoryService.createMovieDbQuery(this.category, null, this.pageService.selectedPage);
 
     this.moviesService.publishMovies(query);
   }

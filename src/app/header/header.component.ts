@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MovieLists } from '../enums/MovieListEnums';
 import { MoviesService } from '../services/movies.service';
 import { MOVIEAPI } from '../constants/StringConstants';
 
