@@ -5,6 +5,7 @@ import { MoviesService } from '../services/movies.service';
 import { MovieDbQuery } from '../Models/MovieDbQuery';
 import { MovieResults } from '../Models/MovieResults';
 import { FactoryService } from '../services/factory.service';
+import { MovieCollectionsService } from '../services/movie-collections.service';
 
 @Component({
   selector: 'app-movie-cards-shows',
@@ -18,13 +19,13 @@ export class MovieCardsComponent implements OnInit {
   public pagination: string[];
 
   constructor(private moviesService: MoviesService,
-    private pageService: PageService, private factoryService: FactoryService) { }
+    private pageService: PageService, private factoryService: FactoryService,
+    private movieCollections: MovieCollectionsService) { }
 
   ngOnInit() {
     this.category = this.moviesService.getActiveCategory();
     this.subscribeToMovieChanges();
     this.initializeMovieSource();
-
   }
 
   private subscribeToMovieChanges() {
