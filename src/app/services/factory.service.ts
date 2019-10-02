@@ -7,6 +7,7 @@ import { MovieDto } from '../DTOs/MovieDto';
 import { AddMovieDto } from '../DTOs/AddMovieDto';
 import { RemoveMovieDto } from '../DTOs/RemovieMovieDto';
 import { EditCollectionInfoDto } from '../DTOs/EditCollectionInfoDto';
+import { RatingDto } from '../DTOs/RatingDto';
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +59,9 @@ export class FactoryService {
 
   public createEditCollectionInfoDto(uid: number, id: number, name: string, description: string) : EditCollectionInfoDto {
     return new EditCollectionInfoDto(uid, id, name, description);
+  }
+
+  public createRatingDto(uid: number, id: number, value: string, review: string, movie: MovieDto) : RatingDto {
+    return new RatingDto(uid, id, value, review, movie);
   }
 }

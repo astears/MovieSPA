@@ -110,5 +110,5 @@ export class MovieCollectionsService {
     }
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 }
