@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
 import { MoviesService} from '../services/movies.service';
+import { MovieCollectionsService } from '../services/movie-collections.service';
+import { FactoryService } from '../services/factory.service';
+import { Movie } from '../Models/Movie';
 
 @Component({
   selector: 'app-movie-detail',
@@ -10,22 +13,56 @@ import { MoviesService} from '../services/movies.service';
 export class MovieDetailComponent implements OnInit {
 
   private movieId: number;
-  movie: any = {};
+  movie: Movie = new Movie();
   backgroundStyle: any = {};
 
   constructor(private routes: ActivatedRoute,
-              private moviesService: MoviesService){ }
+              private moviesService: MoviesService,
+              private movieCollections: MovieCollectionsService){ }
 
   ngOnInit() {
     this.movieId = this.routes.snapshot.params['id'];
 
     this.moviesService.getMovieDetails(this.movieId).subscribe(
-      (movieInfo) => {
+      (movieInfo: Movie) => {
         this.movie = movieInfo;
-        console.log(this.movie);
         this.setBackgroundStyle();
       }
     );
+  }
+
+  public addToFavorites() {
+    this.movieCollections.addToFavorites(this.movie).subscribe(
+      (res: any) => {
+        console.log("Success!");
+    },
+      (error: any) => {
+        console.error(error);
+    });
+  }
+
+  public addToWatchlist() {
+    this.movieCollections.addToWatchlist(this.movie).subscribe(
+      (res: any) => {
+        console.log("Success!");
+    },
+      (error: any) => {
+        console.error(error);
+    });
+  }
+
+  public showCollections() {
+    this.movieCollections.getCollectionsByUser().subscribe(
+      (res: any) => {
+        console.log(res);
+    },
+      (error: any) => {
+        console.error(error);
+    });
+  }
+
+  public showRatingOptions() {
+
   }
 
   setBackgroundStyle() {

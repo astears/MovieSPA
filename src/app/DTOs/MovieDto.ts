@@ -29,6 +29,7 @@ export class MovieDto {
         this.BackdropURL = backdropUrl;
         this.PosterURL = posterUrl;
         this.Budget = budget;
+        this.Language = language;
         this.Popularity = popularity;
         this.Genres = genres;
 

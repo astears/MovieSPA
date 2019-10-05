@@ -16,10 +16,10 @@
       </h1>
 
       <div class="save-actions">
-          <span class="glyphicon glyphicon-list"></span>
-          <span class="glyphicon glyphicon-heart"></span>
-          <span class="glyphicon glyphicon-bookmark"></span>
-          <span class="glyphicon glyphicon-star"></span>
+          <span id="list" class="glyphicon glyphicon-list" (click)="showCollections()"></span>
+          <span id="favorite" class="glyphicon glyphicon-heart" (click)="addToFavorites()"></span>
+          <span id="bookmark" class="glyphicon glyphicon-bookmark" (click)="addToWatchlist()"></span>
+          <span id="rate" class="glyphicon glyphicon-star" (click)="showRatingOptions()"></span>
       </div>
 
       <div class="overview-section">

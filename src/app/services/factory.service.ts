@@ -8,6 +8,11 @@ import { AddMovieDto } from '../DTOs/AddMovieDto';
 import { RemoveMovieDto } from '../DTOs/RemovieMovieDto';
 import { EditCollectionInfoDto } from '../DTOs/EditCollectionInfoDto';
 import { RatingDto } from '../DTOs/RatingDto';
+import { WatchlistDto } from '../DTOs/WatchlistDto';
+import { FavoritesDto } from '../DTOs/FavoritesDto';
+import { GenreDto } from '../DTOs/GenreDto';
+import { Movie } from '../Models/Movie';
+import { IGenre } from '../Models/IGenre';
 
 @Injectable({
   providedIn: 'root'
@@ -63,5 +68,30 @@ export class FactoryService {
 
   public createRatingDto(uid: number, id: number, value: string, review: string, movie: MovieDto) : RatingDto {
     return new RatingDto(uid, id, value, review, movie);
+  }
+
+  public createWatchlistDto(uid: number, movie: MovieDto) : WatchlistDto {
+    return new WatchlistDto(uid, movie);
+  }
+
+  public createFavoritesDto(uid: number, movie: MovieDto) : FavoritesDto {
+    return new FavoritesDto(uid, movie);
+  }
+
+  public createMovieDto(movie: Movie) : MovieDto {
+
+    let genres = this.createGenreDtos(movie.genres);
+
+      return new MovieDto(-1, movie.title, movie.overview, movie.runtime, movie.release_date,
+        movie.imdb_id, movie.id, movie.backdrop_path, movie.poster_path, movie.budget,
+        movie.original_language, movie.popularity, genres);
+  }
+
+  public createGenreDtos(genres: IGenre[]) : GenreDto[] {
+    let genreDtos : GenreDto[] = [];
+
+    genres.forEach((genre: IGenre) => {genreDtos.push(new GenreDto(genre.id, genre.name))});
+
+    return genreDtos;
   }
 }

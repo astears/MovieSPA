@@ -6,6 +6,7 @@ import { throwError, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { MovieDto } from '../DTOs/MovieDto';
 import { MovieCollection } from '../Models/MovieCollection';
+import { Movie } from '../Models/Movie';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -80,9 +81,11 @@ export class MovieCollectionsService {
     );
   }
 
-  public addToFavorites(collectionId: number, movie: MovieDto) : Observable<any> {
+  public addToFavorites(movie: Movie) : Observable<any> {
     let url = this.baseApiURL + 'favorites';
-    let body = this.factoryService.createAddMovieDto(this.authService.getUid(), collectionId, movie);
+
+    let movieDto = this.factoryService.createMovieDto(movie);
+    let body = this.factoryService.createWatchlistDto(this.authService.getUid(), movieDto);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(
@@ -90,9 +93,11 @@ export class MovieCollectionsService {
       );
   }
 
-  public addToWatchlist(collectionId: number, movie: MovieDto) : Observable<any> {
+  public addToWatchlist(movie: Movie) : Observable<any> {
     let url = this.baseApiURL + 'watchlist';
-    let body = this.factoryService.createAddMovieDto(this.authService.getUid(), collectionId, movie);
+
+    let movieDto = this.factoryService.createMovieDto(movie);
+    let body = this.factoryService.createWatchlistDto(this.authService.getUid(), movieDto);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(

@@ -53,11 +53,35 @@
   width: 36px;
   height: 36px;
   padding: 8px;
-  
+
   background: #fff;
   border: 2px solid #666;
   color: #666;
   text-align: center;
-  
+
   font: 32px Arial, sans-serif;
+}
+
+.glyphicon {
+  font-size: 32px;
+}
+
+.glyphicon:hover {
+  cursor: pointer;
+}
+
+#list:hover {
+  color: #5cb85c;;
+}
+
+#favorite:hover {
+  color: rgb(255, 70, 70);
+}
+
+#bookmark:hover {
+  color: #03b6fc;
+}
+
+#rate:hover {
+  color: gold;
 }
