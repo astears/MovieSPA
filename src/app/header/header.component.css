@@ -52,3 +52,6 @@ input:focus{
   padding-left: 160px;
 }
 
+.glyphicon-user {
+  font-size: 10px;
+}

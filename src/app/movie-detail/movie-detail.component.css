@@ -66,22 +66,43 @@
   font-size: 32px;
 }
 
+.glyphicon-ring {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 4px solid white;
+  color: white;
+  display: inline-table;
+  text-align: center;
+  margin-right: 3em;
+}
+
+.glyphicon-ring .glyphicon-bordered {
+  font-size: 20px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.glyphicon-ring:hover {
+  background-color: white;
+}
+
 .glyphicon:hover {
   cursor: pointer;
+  color: rgb(45, 64, 151);
 }
 
 #list:hover {
-  color: #5cb85c;;
+
 }
 
 #favorite:hover {
-  color: rgb(255, 70, 70);
+  color: rgb(156, 30, 30);
 }
 
-#bookmark:hover {
-  color: #03b6fc;
+#bookmark {
 }
 
-#rate:hover {
-  color: gold;
+#rate:hover{
+  color: rgb(153, 133, 18);
 }

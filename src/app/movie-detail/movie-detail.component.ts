@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
 import { MoviesService} from '../services/movies.service';
 import { MovieCollectionsService } from '../services/movie-collections.service';
-import { FactoryService } from '../services/factory.service';
 import { Movie } from '../Models/Movie';
 
 @Component({
@@ -15,6 +14,8 @@ export class MovieDetailComponent implements OnInit {
   private movieId: number;
   movie: Movie = new Movie();
   backgroundStyle: any = {};
+  success = false;
+  displayPopup = false;
 
   constructor(private routes: ActivatedRoute,
               private moviesService: MoviesService,
@@ -26,6 +27,7 @@ export class MovieDetailComponent implements OnInit {
     this.moviesService.getMovieDetails(this.movieId).subscribe(
       (movieInfo: Movie) => {
         this.movie = movieInfo;
+        console.log(this.movie)
         this.setBackgroundStyle();
       }
     );
@@ -34,20 +36,24 @@ export class MovieDetailComponent implements OnInit {
   public addToFavorites() {
     this.movieCollections.addToFavorites(this.movie).subscribe(
       (res: any) => {
-        console.log("Success!");
+        this.success = true;
+        this.giveUserFeedback();
     },
       (error: any) => {
-        console.error(error);
+        this.success = false;
+        this.giveUserFeedback();
     });
   }
 
   public addToWatchlist() {
     this.movieCollections.addToWatchlist(this.movie).subscribe(
       (res: any) => {
-        console.log("Success!");
+        this.success = true;
+        this.giveUserFeedback();
     },
       (error: any) => {
-        console.error(error);
+        this.success = false;
+        this.giveUserFeedback();
     });
   }
 
@@ -63,6 +69,13 @@ export class MovieDetailComponent implements OnInit {
 
   public showRatingOptions() {
 
+  }
+
+  giveUserFeedback() {
+    this.displayPopup = true;
+    setTimeout(() => {
+      this.displayPopup = false;
+    }, 3000)
   }
 
   setBackgroundStyle() {

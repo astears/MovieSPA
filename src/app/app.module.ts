@@ -16,12 +16,14 @@ import { TruncateOverviewPipe } from './pipes/truncate-overview.pipe';
 import { LimitArraySizePipe } from './pipes/limit-array-size.pipe';
 
 import { DropdownDirective } from './directives/dropdown.directive';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   {path: 'movies', component: MovieCardsComponent,
     children: [{path: 'discover', component: FilterMenuComponent}]
   },
   {path: 'movie-detail/:id', component: MovieDetailComponent, pathMatch: 'full'},
+  {path: 'profile', component: ProfileComponent},
   {path: '', redirectTo: 'movies', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     DropdownDirective,
     MovieDetailComponent,
     FilterMenuComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

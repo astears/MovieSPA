@@ -12,14 +12,15 @@
 
     <div class="col-md-5">
 
-      <h1 class="movie-title">{{movie.title}}
-      </h1>
+      <h1 class="movie-title">{{movie.title}}</h1>
 
       <div class="save-actions">
-          <span id="list" class="glyphicon glyphicon-list" (click)="showCollections()"></span>
-          <span id="favorite" class="glyphicon glyphicon-heart" (click)="addToFavorites()"></span>
-          <span id="bookmark" class="glyphicon glyphicon-bookmark" (click)="addToWatchlist()"></span>
-          <span id="rate" class="glyphicon glyphicon-star" (click)="showRatingOptions()"></span>
+
+        <div class="glyphicon-ring"><span id="list" class="glyphicon glyphicon-list glyphicon-bordered" (click)="showCollections()"></span></div>
+        <div class="glyphicon-ring"><span id="favorite" class="glyphicon glyphicon-heart glyphicon-bordered" (click)="addToFavorites()"></span></div>
+        <div class="glyphicon-ring"><span id="bookmark" class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="addToWatchlist()"></span></div>
+        <div class="glyphicon-ring"><span id="rate" class="glyphicon glyphicon-star glyphicon-bordered" (click)="showRatingOptions()"></span></div>
+        <div *ngIf="displayPopup" [ngClass]="{'alert': true, 'alert-success': success, 'alert-danger': !success}" style="width: 280px; margin-top: 25px; margin-left: 70px;" role="alert"><p class="text-center">{{success === true ? 'Successfly added!' : 'Oops, something went wrong. Try later.'}}</p></div>
       </div>
 
       <div class="overview-section">
