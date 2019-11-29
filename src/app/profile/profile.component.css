@@ -1,0 +1,16 @@
+.row-header {
+  margin-left: 110px;
+  margin-right: 110px;
+}
+
+.header-item {
+  margin-left: 30px;
+  margin-top: 30px;
+  font-family: 'Comfortaa', cursive;
+  font-size: x-large;
+  color: gray;
+}
+
+.header-item:hover {
+  color: black;
+}

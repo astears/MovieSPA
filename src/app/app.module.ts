@@ -17,13 +17,23 @@ import { LimitArraySizePipe } from './pipes/limit-array-size.pipe';
 
 import { DropdownDirective } from './directives/dropdown.directive';
 import { ProfileComponent } from './profile/profile.component';
+import { WatchlistComponent } from './profile/watchlist/watchlist.component';
+import { FavoritesComponent } from './profile/favorites/favorites.component';
+import { RatingsComponent } from './profile/ratings/ratings.component';
+import { AllListsComponent } from './profile/all-lists/all-lists.component';
 
 const appRoutes: Routes = [
-  {path: 'movies', component: MovieCardsComponent,
+  {path: 'movies', component: MovieCardsComponent, pathMatch: 'full',
     children: [{path: 'discover', component: FilterMenuComponent}]
   },
   {path: 'movie-detail/:id', component: MovieDetailComponent, pathMatch: 'full'},
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent,pathMatch: 'prefix',
+    children: [{path: '', redirectTo: 'watchlists', pathMatch:'full'},
+              {path: 'watchlists', component: WatchlistComponent},
+              {path: 'favorites', component: FavoritesComponent},
+              {path: 'all-lists', component: RatingsComponent},
+              {path: 'ratings', component: AllListsComponent}]
+  },
   {path: '', redirectTo: 'movies', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
@@ -40,7 +50,11 @@ const appRoutes: Routes = [
     MovieDetailComponent,
     FilterMenuComponent,
     PageNotFoundComponent,
-    ProfileComponent
+    ProfileComponent,
+    WatchlistComponent,
+    FavoritesComponent,
+    RatingsComponent,
+    AllListsComponent
   ],
   imports: [
     BrowserModule,
