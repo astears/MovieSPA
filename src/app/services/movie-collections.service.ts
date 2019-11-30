@@ -63,19 +63,19 @@ export class MovieCollectionsService {
       );
   }
 
-  public getCollectionsByUser() : Observable<any> {
+  public getCollectionsByUser() : Observable<MovieCollection[]> {
     let url = this.baseApiURL + this.authService.getUid();
 
-    return this.httpClient.get<any>(url, httpOptions)
+    return this.httpClient.get<MovieCollection[]>(url, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
   }
 
-  public getCollectionById(collectionId: number): Observable<any> {
+  public getCollectionById(collectionId: number): Observable<MovieCollection[]> {
     let url = this.baseApiURL + this.authService.getUid() + `/${collectionId}`;
 
-    return this.httpClient.get<any>(url, httpOptions)
+    return this.httpClient.get<MovieCollection[]>(url, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
@@ -85,7 +85,7 @@ export class MovieCollectionsService {
     let url = this.baseApiURL + 'favorites';
 
     let movieDto = this.factoryService.createMovieDto(movie);
-    let body = this.factoryService.createWatchlistDto(this.authService.getUid(), movieDto);
+    let body = this.factoryService.createFavoritesDto(this.authService.getUid(), movieDto);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(
