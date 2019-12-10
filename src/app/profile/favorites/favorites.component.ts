@@ -8,21 +8,16 @@ import { MovieCollection } from 'src/app/Models/MovieCollection';
   styleUrls: ['./favorites.component.css']
 })
 export class FavoritesComponent implements OnInit {
-  favorites: MovieCollection;
+  public favorites: MovieCollection;
   constructor(private movieCollections: MovieCollectionsService) { }
 
   ngOnInit() {
-    this.movieCollections.getCollectionsByUser().subscribe(
-      (collections: MovieCollection[]) => {
-        collections.forEach(collection => {
-          if (collection.name === 'Favorites') {
-            this.favorites = collection;
-            console.log(this.favorites);
-          }
-        });
+    this.movieCollections.getCollectionByName("Favorites").subscribe(
+      (collection: MovieCollection) => {
+        this.favorites = collection;
+        console.log(this.favorites)
       },
       (error: any) => {
-        //TODO
         console.log('error getting movie collections');
       }
     )

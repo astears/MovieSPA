@@ -73,9 +73,18 @@ export class MovieCollectionsService {
   }
 
   public getCollectionById(collectionId: number): Observable<MovieCollection[]> {
-    let url = this.baseApiURL + this.authService.getUid() + `/${collectionId}`;
+    let url = this.baseApiURL + this.authService.getUid() + "/collectionId" + `/${collectionId}`;
 
     return this.httpClient.get<MovieCollection[]>(url, httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public getCollectionByName(collectionName: string): Observable<MovieCollection> {
+    let url = this.baseApiURL + this.authService.getUid() + "/collectionName" + `/${collectionName}`;
+
+    return this.httpClient.get<MovieCollection>(url, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
