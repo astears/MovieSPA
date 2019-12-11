@@ -1,3 +1,30 @@
-<p *ngFor="let movie of favorites?.movieToMovieCollections">
-  {{movie.movie.title}}
-</p>
+<div class="container">
+<div *ngFor="let movie of favorites?.movieToMovieCollections" class="movie-wrapper">
+  <div class="outlinedDiv">
+    <div class="row">
+      <div class="col-xs-4">
+          <img class="movieImg responsive"
+            [src]="'https://image.tmdb.org/t/p/w780' + movie.movie.posterURL"
+            [alt]="movie.movie.title"/>
+
+      </div>
+      <div class="col-xs-8">
+        <div class="movie-body-wrapper">
+            <h4 class="movieTitle">{{movie.movie.title === undefined ? '' : movie.movie.title}}</h4>
+            <p class="releaseDate">{{movie.movie.releaseDate | date:'longDate'}}</p>
+            <p class="movieDescription">{{movie.movie.overview | truncate}}</p>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-10 ">
+              <button [routerLink]="['/movie-detail', movie.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

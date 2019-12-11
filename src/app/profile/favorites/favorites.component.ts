@@ -15,7 +15,7 @@ export class FavoritesComponent implements OnInit {
     this.movieCollections.getCollectionByName("Favorites").subscribe(
       (collection: MovieCollection) => {
         this.favorites = collection;
-        console.log(this.favorites)
+        console.log(this.favorites.movieToMovieCollections)
       },
       (error: any) => {
         console.log('error getting movie collections');

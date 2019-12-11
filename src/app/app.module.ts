@@ -31,8 +31,8 @@ const appRoutes: Routes = [
     children: [{path: '', redirectTo: 'watchlists', pathMatch:'full'},
               {path: 'watchlists', component: WatchlistComponent},
               {path: 'favorites', component: FavoritesComponent},
-              {path: 'all-lists', component: RatingsComponent},
-              {path: 'ratings', component: AllListsComponent}]
+              {path: 'all-lists', component: AllListsComponent},
+              {path: 'ratings', component: RatingsComponent}]
   },
   {path: '', redirectTo: 'movies', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
