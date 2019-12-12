@@ -12,5 +12,9 @@
 }
 
 .header-item:hover {
-  color: black;
+  color: #73AD21;
+}
+
+.active-header {
+  color: rgb(88, 151, 0);
 }

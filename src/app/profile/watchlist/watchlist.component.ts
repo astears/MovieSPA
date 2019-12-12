@@ -15,7 +15,7 @@ export class WatchlistComponent implements OnInit {
     this.movieCollections.getCollectionByName("Watchlist").subscribe(
       (collection: MovieCollection) => {
         this.watchlist = collection;
-        console.log(this.watchlist.movieToMovieCollections)
+        console.log(this.watchlist)
       },
       (error: any) => {
         console.log('error getting movie collections');

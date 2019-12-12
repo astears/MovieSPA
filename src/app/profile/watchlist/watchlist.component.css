@@ -13,6 +13,11 @@
   min-height: 325;
 }
 
+.header {
+  font-family: 'Comfortaa', cursive;
+  margin-bottom: 20px;
+}
+
 .responsive {
   width: 100%;
   height: auto;

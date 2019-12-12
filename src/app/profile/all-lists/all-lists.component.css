@@ -1,0 +1,43 @@
+.header {
+  font-family: 'Comfortaa', cursive;
+  margin-bottom: 20px;
+}
+
+.MovieListsContent {
+  padding-left: 10px;
+  padding-top: 30px;
+  font-family: 'Comfortaa', cursive;
+}
+
+.Title {
+  margin-bottom: 40px;
+  font-family: 'Comfortaa', cursive;
+}
+
+.img-container {
+  float: left;
+  min-height: 282px;
+  min-width: 500px;
+  margin: 25px;
+}
+
+.img-container:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+.collection-info {
+  color: white;
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
+}
+.collection-title {
+  color: white;
+  margin-top: 125px;
+  font-size: 30px;
+}
+
+.collection-count {
+    color: gray;
+}
+
+

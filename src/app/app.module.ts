@@ -28,7 +28,7 @@ const appRoutes: Routes = [
   },
   {path: 'movie-detail/:id', component: MovieDetailComponent, pathMatch: 'full'},
   {path: 'profile', component: ProfileComponent,pathMatch: 'prefix',
-    children: [{path: '', redirectTo: 'watchlists', pathMatch:'full'},
+    children: [{path: '', redirectTo: 'all-lists', pathMatch:'full'},
               {path: 'watchlists', component: WatchlistComponent},
               {path: 'favorites', component: FavoritesComponent},
               {path: 'all-lists', component: AllListsComponent},
