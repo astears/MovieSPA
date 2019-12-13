@@ -16,6 +16,7 @@ export class MovieDetailComponent implements OnInit {
   backgroundStyle: any = {};
   success = false;
   displayPopup = false;
+  showRatings = false;
 
   constructor(private routes: ActivatedRoute,
               private moviesService: MoviesService,

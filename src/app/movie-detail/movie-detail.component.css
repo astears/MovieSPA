@@ -106,3 +106,40 @@
 #rate:hover{
   color: rgb(153, 133, 18);
 }
+
+.rating-section {
+  display: inline;
+}
+
+.rating-options {
+  margin-top: 20px;
+  height: 58px;
+  background-color: rgba(184, 183, 183, .2);
+  max-width: 250px;
+  margin-left: 205px;
+  padding-top: 3px;
+  padding-bottom: 10px;
+  padding-right: 22px;
+  border-radius: 5px;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+
+.star {
+  color:rgb(184, 183, 183);
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.rating-options > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating-options > span:hover:before,
+.rating-options > span:hover ~ span:before {
+   color:  rgb(221, 201, 24);;
+}
+

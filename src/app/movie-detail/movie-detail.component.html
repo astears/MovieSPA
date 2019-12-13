@@ -19,7 +19,17 @@
         <div class="glyphicon-ring"><span id="list" class="glyphicon glyphicon-list glyphicon-bordered" (click)="showCollections()"></span></div>
         <div class="glyphicon-ring"><span id="favorite" class="glyphicon glyphicon-heart glyphicon-bordered" (click)="addToFavorites()"></span></div>
         <div class="glyphicon-ring"><span id="bookmark" class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="addToWatchlist()"></span></div>
-        <div class="glyphicon-ring"><span id="rate" class="glyphicon glyphicon-star glyphicon-bordered" (click)="showRatingOptions()"></span></div>
+          <div #someDiv (click)="showRatings = true" class="glyphicon-ring">
+            <span id="rate" class="glyphicon glyphicon-star glyphicon-bordered" (click)="showRatingOptions()"></span>
+          </div>
+
+        <div  *ngIf="showRatings" (mouseleave)="showRatings = false" class="rating-options">
+            <span id="star5" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+            <span id="star4" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+            <span id="star3" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+            <span id="star2" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+            <span id="star1" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+        </div>
         <div *ngIf="displayPopup" [ngClass]="{'alert': true, 'alert-success': success, 'alert-danger': !success}" style="width: 280px; margin-top: 25px; margin-left: 70px;" role="alert"><p class="text-center">{{success === true ? 'Successfly added!' : 'Oops, something went wrong. Try later.'}}</p></div>
       </div>
 
