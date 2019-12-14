@@ -133,13 +133,11 @@
 }
 
 .rating-options > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
+  width: 35px;
 }
 
-.rating-options > span:hover:before,
-.rating-options > span:hover ~ span:before {
-   color:  rgb(221, 201, 24);;
+.rating-options > span:hover,
+.rating-options > span:hover ~ span {
+   color:  rgb(221, 201, 24);
 }
 
