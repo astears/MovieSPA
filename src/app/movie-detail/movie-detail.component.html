@@ -19,11 +19,11 @@
         <div class="glyphicon-ring"><span id="list" class="glyphicon glyphicon-list glyphicon-bordered" (click)="showCollections()"></span></div>
         <div class="glyphicon-ring"><span id="favorite" class="glyphicon glyphicon-heart glyphicon-bordered" (click)="addToFavorites()"></span></div>
         <div class="glyphicon-ring"><span id="bookmark" class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="addToWatchlist()"></span></div>
-          <div #someDiv (click)="showRatings = true" class="glyphicon-ring">
-            <span id="rate" class="glyphicon glyphicon-star glyphicon-bordered" (click)="showRatingOptions()"></span>
+          <div (click)="showRatings = true" class="glyphicon-ring">
+            <span #myDiv id="rate" class="glyphicon glyphicon-star glyphicon-bordered"></span>
           </div>
 
-        <div  *ngIf="showRatings" (mouseleave)="showRatings = false" class="rating-options">
+        <div  *ngIf="showRatings" (clickOut)="closeRatings()" [allowedClick]="myDiv" class="rating-options">
             <span id="star5" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
             <span id="star4" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
             <span id="star3" class="glyphicon glyphicon-star glyphicon-bordered star"></span>

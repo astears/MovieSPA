@@ -21,6 +21,7 @@ import { WatchlistComponent } from './profile/watchlist/watchlist.component';
 import { FavoritesComponent } from './profile/favorites/favorites.component';
 import { RatingsComponent } from './profile/ratings/ratings.component';
 import { AllListsComponent } from './profile/all-lists/all-lists.component';
+import { ClickOutDirective } from './directives/click-out.directive';
 
 const appRoutes: Routes = [
   {path: 'movies', component: MovieCardsComponent, pathMatch: 'full',
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     WatchlistComponent,
     FavoritesComponent,
     RatingsComponent,
-    AllListsComponent
+    AllListsComponent,
+    ClickOutDirective
   ],
   imports: [
     BrowserModule,

@@ -68,15 +68,15 @@ export class MovieDetailComponent implements OnInit {
     });
   }
 
-  public showRatingOptions() {
-
-  }
-
   giveUserFeedback() {
     this.displayPopup = true;
     setTimeout(() => {
       this.displayPopup = false;
     }, 3000)
+  }
+
+  public closeRatings() {
+    this.showRatings = false;
   }
 
   setBackgroundStyle() {
