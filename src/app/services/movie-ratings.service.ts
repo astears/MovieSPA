@@ -4,13 +4,17 @@ import { AuthService } from './auth.service';
 import { throwError, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { MovieDto } from '../DTOs/MovieDto';
+import { Movie } from '../Models/Movie';
+import { Injectable } from '@angular/core';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
   })
 };
-
+@Injectable({
+  providedIn: 'root'
+})
 export class MovieRatingsService {
   private baseApiURL = 'http://localhost:5000/api/ratings/';
 
@@ -26,8 +30,8 @@ export class MovieRatingsService {
     );
   }
 
-  public getRatingsByUserId(uid: number) : Observable<any> {
-    let url = this.baseApiURL + 'userratings' + `/${uid}`;
+  public getRatingsByUserId() : Observable<any> {
+    let url = this.baseApiURL + 'userratings' + `/${this.authService.getUid()}`;
 
     return this.httpClient.get<any>(url, httpOptions)
     .pipe(
@@ -35,9 +39,11 @@ export class MovieRatingsService {
     );
   }
 
-  public addMovieRating(uid: number, id: number, value: string, review: string, movie: MovieDto) : Observable<any> {
+  public addMovieRating(value: number, review: string, movie: Movie) : Observable<any> {
+    if (movie === null) {throwError('Movie data is empty')}
     let url = this.baseApiURL + 'rate';
-    let body = this.factoryService.createRatingDto(uid, id, value, review, movie);
+    let movieDto = this.factoryService.createMovieDto(movie);
+    let body = this.factoryService.createRatingDto(this.authService.getUid(), value, review, movieDto);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(

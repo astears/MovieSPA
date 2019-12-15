@@ -114,6 +114,28 @@ export class MovieCollectionsService {
       );
   }
 
+  public removeFromFavorites(movie: Movie) : Observable<any> {
+    let url = this.baseApiURL + 'favorites/remove/' + `${this.authService.getUid()}`;
+
+    let body = this.factoryService.createMovieDto(movie);
+
+    return this.httpClient.post(url, body, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  public removeFromWatchlist(movie: Movie) : Observable<any> {
+    let url = this.baseApiURL + 'watchlist/remove/' + `${this.authService.getUid()}`;
+
+    let body = this.factoryService.createMovieDto(movie);
+
+    return this.httpClient.post(url, body, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

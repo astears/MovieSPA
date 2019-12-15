@@ -92,19 +92,31 @@
   color: rgb(45, 64, 151);
 }
 
+.star {
+  color:rgb(184, 183, 183);
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #list:hover {
 
 }
 
-#favorite:hover {
+#favorite:hover, .favorite {
   color: rgb(156, 30, 30);
 }
 
-#bookmark {
+#bookmark:hover, .bookmark {
+  color: #73AD21;
 }
 
-#rate:hover{
-  color: rgb(153, 133, 18);
+.filled {
+  color:  rgb(221, 201, 24);
+}
+
+.filled:hover {
+  color:  rgb(167, 152, 18);
 }
 
 .rating-section {
@@ -123,13 +135,6 @@
   border-radius: 5px;
   unicode-bidi: bidi-override;
   direction: rtl;
-}
-
-.star {
-  color:rgb(184, 183, 183);
-  margin-left: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .rating-options > span {

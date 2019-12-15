@@ -66,8 +66,8 @@ export class FactoryService {
     return new EditCollectionInfoDto(uid, id, name, description);
   }
 
-  public createRatingDto(uid: number, id: number, value: string, review: string, movie: MovieDto) : RatingDto {
-    return new RatingDto(uid, id, value, review, movie);
+  public createRatingDto(uid: number, value: number, review: string, movie: MovieDto) : RatingDto {
+    return new RatingDto(uid, value, review, movie);
   }
 
   public createWatchlistDto(uid: number, movie: MovieDto) : WatchlistDto {

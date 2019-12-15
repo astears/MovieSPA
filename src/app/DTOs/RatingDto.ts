@@ -2,13 +2,12 @@ import { MovieDto } from './MovieDto';
 
 export class RatingDto {
   public uid: number;
-  public id: number;
-  public value: string;
+  public value: number;
   public review: string;
   public movie: MovieDto;
 
-  constructor(uid: number, id: number, value: string, review: string, movie: MovieDto) {
-      this.id = id;
+  constructor(uid: number, value: number, review: string, movie: MovieDto) {
+
       this.uid = uid;
       this.value = value;
       this.review = review;
