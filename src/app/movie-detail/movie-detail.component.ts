@@ -15,23 +15,27 @@ export class MovieDetailComponent implements OnInit {
 
   private movieId: number;
   movie: Movie = new Movie();
+  collections: MovieCollection[];
+  selectedCollection: MovieCollection;
   backgroundStyle: any = {};
   isFavorite = false;
   isRated = false;
   isWatchlisted = false;
   success = false;
   displayPopup = false;
+  showCollections = false;
   showRatings = false;
   starRatings = [false, false, false, false, false];
 
   constructor(private routes: ActivatedRoute,
               private moviesService: MoviesService,
-              private movieCollections: MovieCollectionsService,
+              private movieCollectionsService: MovieCollectionsService,
               private ratingsService: MovieRatingsService){ }
 
   ngOnInit() {
     this.movieId = this.routes.snapshot.params['id'];
 
+    // Get movie details
     this.moviesService.getMovieDetails(this.movieId).subscribe(
       (movieInfo: Movie) => {
         this.movie = movieInfo;
@@ -40,63 +44,65 @@ export class MovieDetailComponent implements OnInit {
       }
     );
 
-    this.getMovieGlyphiconDetails();
-  }
-
-  public getMovieGlyphiconDetails() {
-    this.movieCollections.getCollectionByName('Favorites').subscribe(
-      (favorites: MovieCollection) => {
-        console.log(favorites)
-        if (favorites !== null) {
-          favorites.movieToMovieCollections.forEach(mmc => {
-            if (mmc.movie.movieDbId === this.movie.id) {
-              this.isFavorite = true;
-            }
-          });
-        }
-      }
-    );
-
-    this.movieCollections.getCollectionByName('Watchlist').subscribe(
-      (watchlist: MovieCollection) => {
-        if (watchlist !== null) {
-          watchlist.movieToMovieCollections.forEach(mmc => {
-            if (mmc.movie.movieDbId === this.movie.id) {
-              this.isWatchlisted = true;
-            }
-          });
-        }
-      }
-    );
-
+    // Get user ratings, to see if user has rated this movie
     this.ratingsService.getRatingsByUserId().subscribe(
       (ratings: any) => {
         ratings.movieRatingsByUser.forEach(rating => {
           if (rating.movie.movieDbId === this.movie.id) {
             this.isRated = true;
             this.fillStarRatings(rating.rating.value);
-            console.log(rating.rating.value)
           }
         });
-      }, (err: any) => {}
-    )
+      }, (err: any) => {console.error(err)}
+    );
+
+    // Get all collections for this user, check if favorite or watchlisted
+    this.movieCollectionsService.getCollectionsByUser().subscribe(
+      (collections: MovieCollection[]) => {
+        this.collections = collections;
+        this.selectedCollection = this.collections[0];
+        this.checkIsFavoriteIsWatchlist()
+      }, (error: any) => {console.error(error);}
+    );
+
+  }
+
+  public checkIsFavoriteIsWatchlist() {
+    this.collections.forEach(collection => {
+      if (collection.name === 'Favorites') {
+        collection.movieToMovieCollections.forEach(mmc => {
+          if (mmc.movie.movieDbId === this.movie.id) {
+            this.isFavorite = true;
+          }
+        });
+      }
+      else if (collection.name === 'Watchlist') {
+        collection.movieToMovieCollections.forEach(mmc => {
+          if (mmc.movie.movieDbId === this.movie.id) {
+            this.isWatchlisted= true;
+          }
+        });
+      }
+    });
   }
 
   public ToggleToFavorites() {
-    //console.log(this.isFavorite)
+    // If not favorited, mark as favorite
     if (!this.isFavorite) {
-      this.movieCollections.addToFavorites(this.movie).subscribe(
+      this.movieCollectionsService.addToFavorites(this.movie).subscribe(
         (res: any) => {
           this.isFavorite = true;
+          this.giveUserFeedback(true);
       },
         (error: any) => {
           this.giveUserFeedback(false);
       });
-    }
+    } // If already on favorites, remove
     else {
-      this.movieCollections.removeFromFavorites(this.movie).subscribe(
+      this.movieCollectionsService.removeFromFavorites(this.movie).subscribe(
         (res: any) => {
           this.isFavorite = false;
+          this.giveUserFeedback(true);
       },
         (error: any) => {
           this.giveUserFeedback(false);
@@ -105,19 +111,22 @@ export class MovieDetailComponent implements OnInit {
   }
 
   public ToggleToWatchlist() {
+    // If not watchlisted, add to watchlist
     if (!this.isWatchlisted) {
-      this.movieCollections.addToWatchlist(this.movie).subscribe(
+      this.movieCollectionsService.addToWatchlist(this.movie).subscribe(
         (res: any) => {
           this.isWatchlisted = true;
+          this.giveUserFeedback(true);
       },
         (error: any) => {
           this.giveUserFeedback(false);
       });
-    }
+    } // If already watchlisted, remove
     else {
-      this.movieCollections.removeFromWatchlist(this.movie).subscribe(
+      this.movieCollectionsService.removeFromWatchlist(this.movie).subscribe(
         (res: any) => {
           this.isWatchlisted = false;
+          this.giveUserFeedback(true);
       },
         (error: any) => {
           this.giveUserFeedback(false);
@@ -126,22 +135,12 @@ export class MovieDetailComponent implements OnInit {
 
   }
 
-  public showCollections() {
-    this.movieCollections.getCollectionsByUser().subscribe(
+  public addToCollection(collection: MovieCollection) {
+    this.movieCollectionsService.addMovieToCollection(this.selectedCollection.id, this.movie).subscribe(
       (res: any) => {
-        console.log(res);
-    },
-      (error: any) => {
-        console.error(error);
-    });
-  }
-
-  giveUserFeedback(result: boolean) {
-    this.success = result;
-    this.displayPopup = true;
-    setTimeout(() => {
-      this.displayPopup = false;
-    }, 3000)
+        this.giveUserFeedback(true);
+      }, (err: any) => {this.giveUserFeedback(false);console.error(err);}
+    )
   }
 
   public applyRating(rating: number) {
@@ -149,6 +148,7 @@ export class MovieDetailComponent implements OnInit {
     this.ratingsService.addMovieRating(rating, "", this.movie).subscribe(
       (data: any) => {
         this.fillStarRatings(rating);
+        this.giveUserFeedback(true);
       },
       (err: any) => {
         this.giveUserFeedback(false);
@@ -169,8 +169,12 @@ export class MovieDetailComponent implements OnInit {
     }
   }
 
-  public closeRatings() {
-    this.showRatings = false;
+  giveUserFeedback(result: boolean) {
+    this.success = result;
+    this.displayPopup = true;
+    setTimeout(() => {
+      this.displayPopup = false;
+    }, 3000)
   }
 
   setBackgroundStyle() {
