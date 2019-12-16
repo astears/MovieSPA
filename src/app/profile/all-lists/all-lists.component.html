@@ -3,7 +3,7 @@
       <div class="Title">
         <h2>My Movie Lists</h2>
       </div>
-      <div *ngFor="let list of movieLists"  class=" img-container"
+      <div *ngFor="let list of movieLists" [routerLink]="list.id" class=" img-container"
        [ngStyle]="{background: ' linear-gradient(rgba(0%, 0%, 0%, 0.7), rgba(0%, 0%, 0%, 0.7)), url(https://image.tmdb.org/t/p/w500_and_h282_face' + list?.movieToMovieCollections[0].movie.backdropURL + ')'}">
 
        <div class="collection-info">

@@ -22,6 +22,7 @@ import { FavoritesComponent } from './profile/favorites/favorites.component';
 import { RatingsComponent } from './profile/ratings/ratings.component';
 import { AllListsComponent } from './profile/all-lists/all-lists.component';
 import { ClickOutDirective } from './directives/click-out.directive';
+import { MovieListComponent } from './profile/movie-list/movie-list.component';
 
 const appRoutes: Routes = [
   {path: 'movies', component: MovieCardsComponent, pathMatch: 'full',
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
               {path: 'watchlists', component: WatchlistComponent},
               {path: 'favorites', component: FavoritesComponent},
               {path: 'all-lists', component: AllListsComponent},
+              {path: 'all-lists/:id', component: MovieListComponent},
               {path: 'ratings', component: RatingsComponent}]
   },
   {path: '', redirectTo: 'movies', pathMatch: 'full'},
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     FavoritesComponent,
     RatingsComponent,
     AllListsComponent,
-    ClickOutDirective
+    ClickOutDirective,
+    MovieListComponent
   ],
   imports: [
     BrowserModule,

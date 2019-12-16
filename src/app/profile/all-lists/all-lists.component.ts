@@ -23,4 +23,8 @@ export class AllListsComponent implements OnInit {
     )
   }
 
+  public goToList(collection: MovieCollection) {
+
+  }
+
 }

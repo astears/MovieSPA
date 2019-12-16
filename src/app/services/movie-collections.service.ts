@@ -74,10 +74,10 @@ export class MovieCollectionsService {
     );
   }
 
-  public getCollectionById(collectionId: number): Observable<MovieCollection[]> {
+  public getCollectionById(collectionId: number): Observable<MovieCollection> {
     let url = this.baseApiURL + this.authService.getUid() + "/collectionId" + `/${collectionId}`;
 
-    return this.httpClient.get<MovieCollection[]>(url, httpOptions)
+    return this.httpClient.get<MovieCollection>(url, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
