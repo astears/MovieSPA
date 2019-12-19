@@ -3,7 +3,7 @@
   margin-right: 5px;
   margin-bottom: 35px;
   height: 300px;
-  width: 1000px;
+  width: 900px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05),
    0 6px 20px 0 rgba(0, 0, 0, 0.05);
 }
@@ -63,6 +63,12 @@
   background-color: white;
   min-height: 278px;
   max-height: 278px;
-  min-width: 700px;
-  max-width: 700px;
+  min-width: 900px;
+  max-width: 900px;
+}
+
+.glyphicon-remove {
+  font-size: 20px;
+  float: right;
+  color: rgb(168, 0, 0);
 }

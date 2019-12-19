@@ -13,7 +13,7 @@
             [alt]="movie.movie.title"/>
 
       </div>
-      <div class="col-xs-8">
+      <div class="col-xs-7">
         <div class="movie-body-wrapper">
             <h4 class="movieTitle">{{movie.movie.title === undefined ? '' : movie.movie.title}}</h4>
             <p class="releaseDate">{{movie.movie.releaseDate | date:'longDate'}}</p>
@@ -24,9 +24,11 @@
           <div class="col-xs-10 ">
               <button [routerLink]="['/movie-detail', movie.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
           </div>
-
         </div>
+      </div>
 
+      <div class="col-xs-1">
+        <button class="btn btn-danger btn-block">Remove</button>
       </div>
     </div>
   </div>
