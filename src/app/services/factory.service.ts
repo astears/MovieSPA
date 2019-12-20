@@ -58,8 +58,8 @@ export class FactoryService {
     return new AddMovieDto(uid, collectionId, movie);
   }
 
-  public createRemoveMovieDto(collectionId: number, movie: MovieDto) : RemoveMovieDto {
-    return new RemoveMovieDto(collectionId, movie);
+  public createRemoveMovieDto(collectionId: number, movieId: number) : RemoveMovieDto {
+    return new RemoveMovieDto(collectionId, movieId);
   }
 
   public createEditCollectionInfoDto(uid: number, id: number, name: string, description: string) : EditCollectionInfoDto {

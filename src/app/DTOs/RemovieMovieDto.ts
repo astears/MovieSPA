@@ -3,10 +3,10 @@ import { MovieDbQuery } from '../Models/MovieDbQuery';
 
 export class RemoveMovieDto {
   public collectionId: number;
-  public movie: MovieDto;
+  public movieId: number;
 
-  constructor(collectionId: number, movie: MovieDto) {
+  constructor(collectionId: number, movieId: number) {
     this.collectionId = collectionId;
-    this.movie = movie;
+    this.movieId = movieId;
   }
 }

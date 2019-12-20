@@ -45,9 +45,9 @@ export class MovieCollectionsService {
       );
   }
 
-  public removeMovieFromCollection(collectionId: number, movie: MovieDto) : Observable<any> {
+  public removeMovieFromCollection(collectionId: number, movieId: number) : Observable<any> {
     let url = this.baseApiURL + 'removeMovie';
-    let body = this.factoryService.createRemoveMovieDto(collectionId, movie);
+    let body = this.factoryService.createRemoveMovieDto(collectionId, movieId);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(
