@@ -39,11 +39,14 @@ export class MovieDetailComponent implements OnInit {
     this.moviesService.getMovieDetails(this.movieId).subscribe(
       (movieInfo: Movie) => {
         this.movie = movieInfo;
-        console.log(this.movie)
+        this.getUsersActionsOnMovie();
         this.setBackgroundStyle();
       }
     );
 
+  }
+
+  public getUsersActionsOnMovie() {
     // Get user ratings, to see if user has rated this movie
     this.ratingsService.getRatingsByUserId().subscribe(
       (ratings: any) => {
@@ -64,10 +67,11 @@ export class MovieDetailComponent implements OnInit {
         this.checkIsFavoriteIsWatchlist()
       }, (error: any) => {console.error(error);}
     );
-
   }
 
   public checkIsFavoriteIsWatchlist() {
+    console.log(this.collections);
+    console.log(this.movie)
     this.collections.forEach(collection => {
       if (collection.name === 'Favorites') {
         collection.movieToMovieCollections.forEach(mmc => {
@@ -144,9 +148,9 @@ export class MovieDetailComponent implements OnInit {
   }
 
   public applyRating(rating: number) {
-    console.log(rating, this.movie);
     this.ratingsService.addMovieRating(rating, "", this.movie).subscribe(
       (data: any) => {
+        this.isRated = true;
         this.fillStarRatings(rating);
         this.giveUserFeedback(true);
       },

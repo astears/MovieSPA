@@ -12,7 +12,7 @@ export class DropdownDirective {
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-  @HostListener('click') openDropdown(eventData: Event) {
+  @HostListener('click', ['$event']) openDropdown() {
     if(!this.manageDropdown) {
       this.renderer.addClass(this.elementRef.nativeElement,'open');
       this.manageDropdown = !this.manageDropdown;

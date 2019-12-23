@@ -11,8 +11,9 @@ import { MovieCollection } from 'src/app/Models/MovieCollection';
 export class MovieListComponent implements OnInit {
   collectionId: number;
   movies: MovieCollection;
-  @ViewChild('myModal') myModal: any
+  movieToRemove: any;
   showModal = false;
+  dropdownIsOpen = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private movieCollectionsService: MovieCollectionsService) { }
@@ -34,11 +35,11 @@ export class MovieListComponent implements OnInit {
     );
   }
 
-  removeMovie(movie: any) {
-    console.log(movie);
-    this.movieCollectionsService.removeMovieFromCollection(this.collectionId, movie.movieId).subscribe(
+  removeMovie() {
+    console.log(this.movieToRemove);
+    this.movieCollectionsService.removeMovieFromCollection(this.collectionId, this.movieToRemove.movieId).subscribe(
       (data: any) => {
-        console.log(data);
+        this.getMovies();
       }, (err: any) => {console.log(err);}
     );
   }
