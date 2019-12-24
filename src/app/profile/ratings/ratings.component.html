@@ -1,3 +1,46 @@
-<p>
-  ratings works!
-</p>
+<div class="container">
+  <div class="header">
+      <h2 class="title">
+        All Ratings
+      </h2>
+  </div>
+
+<div *ngFor="let movie of movies" class="movie-wrapper">
+  <div class="outlinedDiv">
+    <div class="row">
+      <div class="col-xs-4">
+          <img class="movieImg responsive"
+            [src]="'https://image.tmdb.org/t/p/w780' + movie.movie.posterURL"
+            [alt]="movie.movie.title"/>
+
+      </div>
+      <div class="col-xs-7">
+        <div class="movie-body-wrapper">
+            <div class="movieTitle">
+              {{movie.movie.title === undefined ? '' : movie.movie.title}}<span class="releaseDate"> {{ ' - ' + movie.movie.releaseDate | date:'longDate'}}</span>
+            </div>
+            <div class="rating-options">
+              <span id="star5" [ngClass]="{'filled': movie.rating.value >= 5}" class="glyphicon glyphicon-star"></span>
+              <span id="star4" [ngClass]="{'filled': movie.rating.value >= 4}"  class="glyphicon glyphicon-star"></span>
+              <span id="star3" [ngClass]="{'filled': movie.rating.value >= 3}"  class="glyphicon glyphicon-star"></span>
+              <span id="star2" [ngClass]="{'filled': movie.rating.value >= 2}"class="glyphicon glyphicon-star"></span>
+              <span id="star1" [ngClass]="{'filled': movie.rating.value >= 1}" class="glyphicon glyphicon-star"></span>
+            </div>
+            <p class="movieDescription">{{movie.movie.overview | truncate}}</p>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-10 ">
+              <button [routerLink]="['/movie-detail', movie.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-1">
+        <div (click)="deleteRating(movie.movieId)" type="button" class="glyphicon-ring" style="margin-top: 10px;">
+          <span class="glyphicon glyphicon-remove glyphicon-bordered"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

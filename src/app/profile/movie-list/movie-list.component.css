@@ -67,13 +67,48 @@
   max-width: 900px;
 }
 
-.glyphicon-remove {
-  font-size: 20px;
-  float: right;
-  color: rgb(168, 0, 0);
+.glyphicon-ring {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid rgb(136, 136, 136);
+  color: rgb(136, 136, 136);
+  display: inline-table;
+  text-align: center;
+  margin-right: 3em;
+}
+
+.glyphicon-ring .glyphicon-bordered {
+  font-size: 13px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.glyphicon-ring:hover {
+  background-color: rgb(136, 136, 136);;
+}
+
+.glyphicon:hover {
+  cursor: pointer;
+  color: rgb(255, 255, 255);
 }
 
 .edit-list {
   margin-left: 820px;
   margin-bottom: 30px;
+}
+
+.list-description {
+  font-size: medium;
+  color: gray;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background-color: rgb(0, 128, 0);
+  color: white;
+}
+
+.btn-save:hover {
+  opacity: .9;
 }

@@ -14,6 +14,7 @@ import { GenreDto } from '../DTOs/GenreDto';
 import { Movie } from '../Models/Movie';
 import { IGenre } from '../Models/IGenre';
 import { DeleteCollectionDto } from '../DTOs/DeleteCollectionDto';
+import { DeleteMovieRatingDto } from '../DTOs/DeleteMovieRatingDto';
 
 @Injectable({
   providedIn: 'root'
@@ -98,5 +99,9 @@ export class FactoryService {
     genres.forEach((genre: IGenre) => {genreDtos.push(new GenreDto(genre.id, genre.name))});
 
     return genreDtos;
+  }
+
+  public createDeleteMovieRatingDto(uid: number, movieId: number) {
+    return new DeleteMovieRatingDto(uid, movieId);
   }
 }

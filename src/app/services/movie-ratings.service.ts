@@ -51,6 +51,16 @@ export class MovieRatingsService {
       );
   }
 
+  public deleteMovieRating(movieId: number) {
+    let url = this.baseApiURL + 'deleteRating';
+    let body = this.factoryService.createDeleteMovieRatingDto(this.authService.getUid(), movieId);
+
+    return this.httpClient.post(url, body, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

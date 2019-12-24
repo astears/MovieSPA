@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   {path: 'profile', component: ProfileComponent,pathMatch: 'prefix',
     children: [{path: '', redirectTo: 'all-lists', pathMatch:'full'},
               {path: 'all-lists', component: AllListsComponent},
-              {path: 'all-lists/:id', component: MovieListComponent},
+              {path: 'movie-list/:id', component: MovieListComponent},
               {path: 'ratings', component: RatingsComponent}]
   },
   {path: '', redirectTo: 'movies', pathMatch: 'full'},

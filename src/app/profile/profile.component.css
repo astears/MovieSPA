@@ -13,6 +13,7 @@
 
 .header-item:hover {
   color: #73AD21;
+  cursor: pointer;
 }
 
 .active-header {

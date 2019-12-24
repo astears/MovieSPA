@@ -3,10 +3,10 @@
       <h2 class="title">
         {{movies?.name}}
       </h2>
-      <small>{{movies?.description}}</small>
+      <p class="list-description">{{movies?.description}}</p>
   </div>
   <div class="edit-list-div">
-    <button class="btn btn-primary edit-list" data-toggle="modal" data-target="#editListModal">
+    <button class="btn btn-default edit-list" data-toggle="modal" data-target="#editListModal">
       Edit List
     </button>
   </div>
@@ -35,9 +35,9 @@
       </div>
 
       <div class="col-xs-1">
-        <button (click)="movieToRemove = movie" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
-          <span class="glyphicon glyphicon-minus"></span>
-        </button>
+        <div (click)="movieToRemove = movie" type="button" class="glyphicon-ring" style="margin-top: 10px;" data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-remove glyphicon-bordered"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -85,7 +85,7 @@
                   type="button" class="btn btn-danger pull-left" data-dismiss="modal"
                   (click)="deleteList()">Delete List</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
-          <button [disabled]="!listForm.form.valid" (click)="onEditList(listForm)" type="button" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
+          <button [disabled]="!listForm.form.valid" (click)="onEditList(listForm)" type="button" class="btn btn-save" data-dismiss="modal">Save Changes</button>
         </div>
       </form>
       </div>

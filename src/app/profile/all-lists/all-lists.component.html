@@ -7,7 +7,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newListModal">Create New List</button>
       </div>
       </div>
-      <div *ngFor="let list of movieLists" [routerLink]="list?.id" class=" img-container"
+      <div *ngFor="let list of movieLists" [routerLink]="'../movie-list/' + list?.id" class=" img-container"
        [ngStyle]="{background: ' linear-gradient(rgba(0%, 0%, 0%, 0.7), rgba(0%, 0%, 0%, 0.7)), url(https://image.tmdb.org/t/p/w500_and_h282_face' + list?.movieToMovieCollections[0]?.movie?.backdropURL + ')'}">
 
         <div class="collection-info">
@@ -37,7 +37,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
-            <button [disabled]="!listForm.form.valid" (click)="onSubmitList(listForm)" type="button" class="btn btn-primary" >Create</button>
+            <button [disabled]="!listForm.form.valid" (click)="onSubmitList(listForm)" type="button" class="btn btn-primary" data-dismiss="modal">Create</button>
           </div>
         </form>
         </div>
