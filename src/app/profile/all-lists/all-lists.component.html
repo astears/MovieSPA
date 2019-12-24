@@ -2,14 +2,45 @@
     <div class="MovieListContent">
       <div class="Title">
         <h2>My Movie Lists</h2>
+
+      <div class="create-list">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newListModal">Create New List</button>
+      </div>
       </div>
       <div *ngFor="let list of movieLists" [routerLink]="list?.id" class=" img-container"
        [ngStyle]="{background: ' linear-gradient(rgba(0%, 0%, 0%, 0.7), rgba(0%, 0%, 0%, 0.7)), url(https://image.tmdb.org/t/p/w500_and_h282_face' + list?.movieToMovieCollections[0]?.movie?.backdropURL + ')'}">
 
-       <div class="collection-info">
-          <p class="collection-title">{{list?.name}}</p>
-          <p class="collection-count">{{list?.movieToMovieCollections.length}} movies in collection</p>
-       </div>
+        <div class="collection-info">
+            <p class="collection-title">{{list?.name}}</p>
+            <p class="collection-count">{{list?.movieToMovieCollections.length}} movies in collection</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="newListModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" >New List</h4>
+          </div>
+          <form #listForm="ngForm">
+          <div class="modal-body">
+              <div class="form-group">
+                <label for="list-title" class="control-label">List Title:</label>
+                <input type="text" class="form-control" id="list-title" required ngModel name="title">
+              </div>
+              <div class="form-group">
+                <label for="list-description" class="control-label">Description:</label>
+                <textarea class="form-control" id="list-description" required ngModel name="description"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+            <button [disabled]="!listForm.form.valid" (click)="onSubmitList(listForm)" type="button" class="btn btn-primary" >Create</button>
+          </div>
+        </form>
+        </div>
       </div>
     </div>
   </div>

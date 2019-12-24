@@ -15,7 +15,7 @@
 
 .header {
   font-family: 'Comfortaa', cursive;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .responsive {
@@ -71,4 +71,9 @@
   font-size: 20px;
   float: right;
   color: rgb(168, 0, 0);
+}
+
+.edit-list {
+  margin-left: 820px;
+  margin-bottom: 30px;
 }

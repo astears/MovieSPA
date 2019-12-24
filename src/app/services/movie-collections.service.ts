@@ -33,6 +33,16 @@ export class MovieCollectionsService {
       );
   }
 
+  public deleteCollection(collectionId: number) {
+    let url = this.baseApiURL + 'deletecollection';
+    let body = this.factoryService.createDeleteCollectionDto(collectionId);
+
+    return this.httpClient.post(url, body, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   public addMovieToCollection(collectionId: number, movie: Movie) : Observable<any> {
     let url = this.baseApiURL + 'addMovie';
 
@@ -58,7 +68,7 @@ export class MovieCollectionsService {
   public editCollectionInfo(id: number, name: string, description: string) : Observable<any> {
     let url = this.baseApiURL + 'editCollection';
     let body = this.factoryService.createEditCollectionInfoDto(this.authService.getUid(), id, name, description);
-
+    console.log(body);
     return this.httpClient.post(url, body, httpOptions)
       .pipe(
         catchError(this.handleError)

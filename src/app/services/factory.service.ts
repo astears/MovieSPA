@@ -13,6 +13,7 @@ import { FavoritesDto } from '../DTOs/FavoritesDto';
 import { GenreDto } from '../DTOs/GenreDto';
 import { Movie } from '../Models/Movie';
 import { IGenre } from '../Models/IGenre';
+import { DeleteCollectionDto } from '../DTOs/DeleteCollectionDto';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,10 @@ export class FactoryService {
 
   public createNewCollectionDto(uid: number, name: string, desc: string) : NewCollectionDto{
     return new NewCollectionDto(uid, name, desc);
+  }
+
+  public createDeleteCollectionDto(collectionId: number) {
+    return new DeleteCollectionDto(collectionId);
   }
 
   public createAddMovieDto(uid: number, collectionId: number, movie: MovieDto) : AddMovieDto {
