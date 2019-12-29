@@ -28,7 +28,7 @@
            placeholder="search for a movie...">
 </div>
 <div *ngIf="showSearchResults" (clickOut)="showSearchResults = false" [allowedClick]="searchbar" class="search-results">
-  <h2 class="results-header">Trending Movies</h2>
+  <h2 class="results-header">{{searchbar.value === '' ? 'Trending Movies' : 'Search Results'}}</h2>
   <div *ngFor="let movie of trendingMovies | slice:0:10" [routerLink]="['/movie-detail', movie.id]" (click)="showSearchResults = false" class="trending-movie">
     <span class="glyphicon glyphicon-search"></span>
     <p class="trending-movie-title">{{movie.title}}</p>
