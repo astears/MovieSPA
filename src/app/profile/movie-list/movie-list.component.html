@@ -11,6 +11,10 @@
     </button>
   </div>
 
+<div *ngIf="movies?.movieToMovieCollections.length === 0" class="no-results">
+  <h3>No movies added - <span><a routerLink="../../../movies">search movies</a></span></h3>
+</div>
+
 <div *ngFor="let movie of movies?.movieToMovieCollections" class="movie-wrapper">
   <div class="outlinedDiv">
     <div class="row">

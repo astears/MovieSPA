@@ -21,6 +21,7 @@ import { RatingsComponent } from './profile/ratings/ratings.component';
 import { AllListsComponent } from './profile/all-lists/all-lists.component';
 import { ClickOutDirective } from './directives/click-out.directive';
 import { MovieListComponent } from './profile/movie-list/movie-list.component';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 const appRoutes: Routes = [
   {path: 'movies', component: MovieCardsComponent, pathMatch: 'full',
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
     RatingsComponent,
     AllListsComponent,
     ClickOutDirective,
-    MovieListComponent
+    MovieListComponent,
+    TooltipDirective
   ],
   imports: [
     BrowserModule,

@@ -16,12 +16,16 @@
 
       <div class="save-actions">
 
-        <div (click)="showCollections = true"  class="glyphicon-ring">
+        <div (click)="showCollections = true"  class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Add To List">
           <span #openCollectionsElement id="list" class="glyphicon glyphicon-list glyphicon-bordered"></span >
         </div>
-        <div class="glyphicon-ring"><span id="favorite" [ngClass]="{'favorite': isFavorite}"  class="glyphicon glyphicon-heart glyphicon-bordered" (click)="ToggleToFavorites()"></span></div>
-        <div class="glyphicon-ring"><span id="bookmark" [ngClass]="{'bookmark': isWatchlisted}"  class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="ToggleToWatchlist()"></span></div>
-        <div (click)="showRatings = true" class="glyphicon-ring">
+        <div class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Toggle To Favorites">
+          <span id="favorite" [ngClass]="{'favorite': isFavorite}"  class="glyphicon glyphicon-heart glyphicon-bordered" (click)="ToggleToFavorites()"></span>
+        </div>
+        <div class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Toggle To Watchlist">
+          <span id="bookmark" [ngClass]="{'bookmark': isWatchlisted}"  class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="ToggleToWatchlist()"></span>
+        </div>
+        <div (click)="showRatings = true" class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Rate">
           <span #openRatingsElement id="rate" [ngClass]="{'filled': isRated}"  class="glyphicon glyphicon-star glyphicon-bordered"></span>
         </div>
 

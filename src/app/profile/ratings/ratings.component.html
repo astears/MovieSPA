@@ -5,6 +5,10 @@
       </h2>
   </div>
 
+<div *ngIf="movies.length === 0" class="no-results">
+  <h3>No ratings - <span><a routerLink="../../movies">search movies</a></span></h3>
+</div>
+
 <div *ngFor="let movie of movies" class="movie-wrapper">
   <div class="outlinedDiv">
     <div class="row">
