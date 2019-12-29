@@ -22,6 +22,13 @@
 </nav>
 <div class="searchBarDiv">
     <span class="glyphicon glyphicon-search"></span>
-    <input class="movieSearchInput" type="search" placeholder="search for a movie, tv show, person...">
+    <input #searchbar (click)="showSearchResults = true" class="movieSearchInput" type="search" placeholder="search for a movie...">
+</div>
+<div *ngIf="showSearchResults" (clickOut)="showSearchResults = false" [allowedClick]="searchbar" class="search-results">
+  <h2 class="results-header">Trending Movies</h2>
+  <div *ngFor="let movie of trendingMovies" [routerLink]="['/movie-detail', movie.id]" (click)="showSearchResults = false" class="trending-movie">
+    <span class="glyphicon glyphicon-search"></span>
+    <p class="trending-movie-title">{{movie.title}}</p>
+  </div>
 </div>
 

@@ -72,6 +72,10 @@ export class MoviesService {
     return this.httpClient.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=fe154f97538186642f6f894b1181689f&language=en-US`);
   }
 
+  public getTrendingMovies() {
+    return this.httpClient.get('https://api.themoviedb.org/3/trending/movie/week?api_key=fe154f97538186642f6f894b1181689f');
+  }
+
   public getActiveCategory() {
     return this.activeCategory;
   }

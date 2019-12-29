@@ -33,9 +33,16 @@ export class MovieDetailComponent implements OnInit {
               private ratingsService: MovieRatingsService){ }
 
   ngOnInit() {
-    this.movieId = this.routes.snapshot.params['id'];
+    this.routes.params.subscribe(
+      (params: any) => {
+        this.movieId = params['id'];
+        this.getMovieDetails();
+      }
+    );
 
-    // Get movie details
+  }
+
+  public getMovieDetails() {
     this.moviesService.getMovieDetails(this.movieId).subscribe(
       (movieInfo: Movie) => {
         this.movie = movieInfo;
@@ -43,7 +50,6 @@ export class MovieDetailComponent implements OnInit {
         this.setBackgroundStyle();
       }
     );
-
   }
 
   public getUsersActionsOnMovie() {
