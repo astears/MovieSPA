@@ -11,9 +11,9 @@
           <li><a routerLink="/movies" id="Upcoming_Movies" (click)="changeCategory($event)">Upcoming Movies</a></li>
           <li><a routerLink="/movies" id="Now_Playing_Movies" (click)="changeCategory($event)">Now Playing Movies</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" style="margin-right: 20px">
-          <li><button routerLink="/profile" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-user"></span>
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 40px">
+          <li><button routerLink="/profile" type="button" class="btn btn-success btn-lg">
+            <span class="glyphicon glyphicon-list-alt"></span>
           </button>
         </li>
         </ul>
@@ -22,13 +22,19 @@
 </nav>
 <div class="searchBarDiv">
     <span class="glyphicon glyphicon-search"></span>
-    <input #searchbar (click)="showSearchResults = true" class="movieSearchInput" type="search" placeholder="search for a movie...">
+    <input #searchbar (click)="showSearchResults = true"
+           (keyup)="search$.next($event.target.value)"
+           class="movieSearchInput" type="search"
+           placeholder="search for a movie...">
 </div>
 <div *ngIf="showSearchResults" (clickOut)="showSearchResults = false" [allowedClick]="searchbar" class="search-results">
   <h2 class="results-header">Trending Movies</h2>
-  <div *ngFor="let movie of trendingMovies" [routerLink]="['/movie-detail', movie.id]" (click)="showSearchResults = false" class="trending-movie">
+  <div *ngFor="let movie of trendingMovies | slice:0:10" [routerLink]="['/movie-detail', movie.id]" (click)="showSearchResults = false" class="trending-movie">
     <span class="glyphicon glyphicon-search"></span>
     <p class="trending-movie-title">{{movie.title}}</p>
+  </div>
+  <div *ngIf="trendingMovies.length === 0">
+    <h3 class="no-results">No Results</h3>
   </div>
 </div>
 

@@ -55,7 +55,6 @@ input:focus{
 .search-results {
   position: absolute;
   z-index: 1;
-  min-height: 200px;
   width: 100%;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05),
@@ -83,6 +82,15 @@ input:focus{
   display: inline-block;
 }
 
-.glyphicon-user {
-  font-size: 10px;
+.no-results {
+  margin-left: 160px;
+  color: gray;
+}
+
+.profile-button {
+  background-color: #73AD21;
+}
+
+.glyphicon-list-alt {
+  font-size: x-large;
 }

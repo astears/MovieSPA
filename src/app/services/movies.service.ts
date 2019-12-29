@@ -76,6 +76,11 @@ export class MoviesService {
     return this.httpClient.get('https://api.themoviedb.org/3/trending/movie/week?api_key=fe154f97538186642f6f894b1181689f');
   }
 
+  public searchMovieByKeyword(keyword: string) {
+    console.log(keyword);
+    return this.httpClient.get(`https://api.themoviedb.org/3/search/movie?api_key=fe154f97538186642f6f894b1181689f&language=en-US&query=${keyword}&page=1&include_adult=false`);
+  }
+
   public getActiveCategory() {
     return this.activeCategory;
   }
