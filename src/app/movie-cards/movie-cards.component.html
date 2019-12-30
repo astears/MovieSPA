@@ -1,41 +1,27 @@
-<div class="container-fluid">
-  <div class="popularMovieContent">
-    <div class="Title">
-      <h2>{{category | FormatHeader}}</h2>
+<div class="section-header">
+  <h2>{{category | FormatHeader}}</h2>
+</div>
+<div class="flex-content">
+  <div class="movie-container" *ngFor="let movie of movies">
+    <div class="movie-img">
+      <img class="responsive"
+          [src]="'https://image.tmdb.org/t/p/w780' + movie.poster_path"
+          [alt]="movie.title"/>
     </div>
-    <div *ngFor="let movie of movies" class="movie-wrapper">
-      <div class="outlinedDiv">
-        <div class="row">
-          <div class="col-xs-4">
-              <img class="movieImg responsive"
-                [src]="'https://image.tmdb.org/t/p/w780' + movie.poster_path"
-                [alt]="movie.title"/>
-
-          </div>
-          <div class="col-xs-8">
-            <div class="movie-body-wrapper">
-                <h4 class="movieTitle">{{movie.title === undefined ? movie.name : movie.title}}</h4>
-                <p class="releaseDate">{{movie.release_date | date:'longDate'}}</p>
-                <p class="movieDescription">{{movie.overview | truncate}}</p>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-10 ">
-                  <button [routerLink]="['/movie-detail', movie.id]" type="button" class="btn btn-block btn-default more">More</button>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
+    <div class="movie-header">
+      <h4 class="movie-title">{{movie.title === undefined ? movie.name : movie.title}}</h4>
+      <p class="release-date">{{movie.release_date | date:'longDate'}}</p>
     </div>
-      <nav class="col-xs-12">
-        <ul class="pagination pagination-lg">
-          <li *ngFor="let page of pagination">
-            <a class="paginationNumber" (click)="changePage($event)">{{page}}</a>
-          </li>
-        </ul>
-      </nav>
+    <div class="movie-body">
+      <p class="movie-description">{{movie.overview | truncate}}</p>
+    </div>
+    <div class="movie-footer">
+      <button [routerLink]="['/movie-detail', movie.id]" type="button" class="btn btn-block btn-default more">More</button>
+    </div>
   </div>
+  <ul class="pagination pagination-lg">
+    <li *ngFor="let page of pagination">
+      <a class="paginationNumber" (click)="changePage($event)">{{page}}</a>
+    </li>
+  </ul>
 </div>
