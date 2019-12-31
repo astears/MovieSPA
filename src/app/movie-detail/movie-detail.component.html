@@ -1,89 +1,64 @@
-<div  class="movie-container">
-  <div class="row"
-       [ngStyle]="backgroundStyle">
-
-    <div class="col-md-4">
-      <img [srcset]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path + ' 1x,
+<div class="movie-detail-container" [ngStyle]="backgroundStyle">
+  <div class="img-container">
+    <img [srcset]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path + ' 1x,
         https://image.tmdb.org/t/p/w600_and_h900_bestv2' + movie.poster_path + ' 2x'"
-        sizes="auto"
+        style="max-width: 100%; height: auto;"
         [src]="'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + movie.poster_path"
-        class="movie-image" alt="{{movie.title}}">
+        alt="{{movie.title}}">
+  </div>
+  <div class="title-container">
+    <h1 class="movie-title">{{movie.title}}</h1>
+  </div>
+  <div class="actions-container">
+    <div (click)="showCollections = true"  class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Add To List">
+      <span #openCollectionsElement id="list" class="glyphicon glyphicon-list glyphicon-bordered"></span >
+    </div>
+    <div class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Toggle To Favorites">
+      <span id="favorite" [ngClass]="{'favorite': isFavorite}"  class="glyphicon glyphicon-heart glyphicon-bordered" (click)="ToggleToFavorites()"></span>
+    </div>
+    <div class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Toggle To Watchlist">
+      <span id="bookmark" [ngClass]="{'bookmark': isWatchlisted}"  class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="ToggleToWatchlist()"></span>
+    </div>
+    <div (click)="showRatings = true" class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Rate">
+      <span #openRatingsElement id="rate" [ngClass]="{'filled': isRated}"  class="glyphicon glyphicon-star glyphicon-bordered"></span>
     </div>
 
-    <div class="col-md-5">
-
-      <h1 class="movie-title">{{movie.title}}</h1>
-
-      <div class="save-actions">
-
-        <div (click)="showCollections = true"  class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Add To List">
-          <span #openCollectionsElement id="list" class="glyphicon glyphicon-list glyphicon-bordered"></span >
-        </div>
-        <div class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Toggle To Favorites">
-          <span id="favorite" [ngClass]="{'favorite': isFavorite}"  class="glyphicon glyphicon-heart glyphicon-bordered" (click)="ToggleToFavorites()"></span>
-        </div>
-        <div class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Toggle To Watchlist">
-          <span id="bookmark" [ngClass]="{'bookmark': isWatchlisted}"  class="glyphicon glyphicon-bookmark glyphicon-bordered" (click)="ToggleToWatchlist()"></span>
-        </div>
-        <div (click)="showRatings = true" class="glyphicon-ring" appTooltip data-toggle="tooltip" data-placement="bottom" title="Rate">
-          <span #openRatingsElement id="rate" [ngClass]="{'filled': isRated}"  class="glyphicon glyphicon-star glyphicon-bordered"></span>
-        </div>
-
-        <div *ngIf="showCollections" (clickOut)="showCollections = false" [allowedClick]="openCollectionsElement" class="collection-box" >
-          <h4 class="list-header">Add to list</h4>
-          <div>
-            <select [(ngModel)]="selectedCollection" class="form-control collections-select">
-              <option *ngFor="let collection of collections" [ngValue]="collection">{{collection.name}}</option>
-            </select>
-            <button (click)="addToCollection()" class="btn-primary btn">add</button>
-          </div>
-        </div>
-
-        <div *ngIf="showRatings" (clickOut)="showRatings = false" [allowedClick]="openRatingsElement" class="rating-options">
-            <span (click)="applyRating(5)" id="star5" [ngClass]="{filled: starRatings[4]}" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
-            <span (click)="applyRating(4)" id="star4" [ngClass]="{filled: starRatings[3]}"  class="glyphicon glyphicon-star glyphicon-bordered star"></span>
-            <span (click)="applyRating(3)" id="star3" [ngClass]="{filled: starRatings[2]}"  class="glyphicon glyphicon-star glyphicon-bordered star"></span>
-            <span (click)="applyRating(2)" id="star2" [ngClass]="{filled: starRatings[1]}" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
-            <span (click)="applyRating(1)" id="star1" [ngClass]="{filled: starRatings[0]}" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
-        </div>
+    <div *ngIf="showCollections" (clickOut)="showCollections = false" [allowedClick]="openCollectionsElement" class="collection-box" >
+      <h4 class="list-header">Add to list</h4>
+      <div>
+        <select [(ngModel)]="selectedCollection" class="form-control collections-select">
+          <option *ngFor="let collection of collections" [ngValue]="collection">{{collection.name}}</option>
+        </select>
+        <button (click)="addToCollection()" class="btn-add">add</button>
       </div>
-
-      <div class="overview-section">
-        <h3 class="overview-header">Overview</h3>
-        <p class="overview-body">
-          {{movie.overview}}
-        </p>
-      </div>
-
     </div>
 
-    <div class="col-md-3">
-
-      <div *ngIf="displayPopup" [ngClass]="{'alert': true, 'alert-success': success, 'alert-danger': !success}" role="alert"><p class="text-center">{{success === true ? 'Success!' : 'Oops, something went wrong. Try later.'}}</p></div>
-        <div class="movie-metadata">
-          <div class="row release-date">
-            <div class="col-md-6">Release Date:</div>
-            <div class="col-md-6"><span class="label label-success">{{movie.release_date | date:'longDate'}}</span></div>
-          </div>
-
-          <div class="row runtime">
-            <div class="col-md-6">Runtime:</div>
-            <div class="col-md-6"><span class="label label-success">{{movie.runtime}} mins</span></div>
-          </div>
-
-          <div class="row original-language">
-            <div class="col-md-6">Language:</div>
-            <div class="col-md-6"><span class="label label-success">{{movie.original_language === 'en' ? 'English' : movie.original_language}}</span></div>
-          </div>
-
-          <div class="row genres">
-            <div class="col-md-6">Genres:</div>
-            <div class="col-md-6"><p *ngFor="let genre of movie.genres | limitArrSize:3"><span class="label label-success">{{genre.name}}</span></p></div>
-
-          </div>
-
-        </div>
+    <div *ngIf="showRatings" (clickOut)="showRatings = false" [allowedClick]="openRatingsElement" class="rating-options">
+        <span (click)="applyRating(5)" id="star5" [ngClass]="{filled: starRatings[4]}" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+        <span (click)="applyRating(4)" id="star4" [ngClass]="{filled: starRatings[3]}"  class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+        <span (click)="applyRating(3)" id="star3" [ngClass]="{filled: starRatings[2]}"  class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+        <span (click)="applyRating(2)" id="star2" [ngClass]="{filled: starRatings[1]}" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
+        <span (click)="applyRating(1)" id="star1" [ngClass]="{filled: starRatings[0]}" class="glyphicon glyphicon-star glyphicon-bordered star"></span>
     </div>
 
   </div>
+  <div class="overview-container">
+    <h3 class="overview-header">Overview</h3>
+    <p class="overview-body">
+      {{movie.overview}}
+    </p>
+  </div>
+  <div class="specs-container">
+    <div>Release Date:</div>
+    <div>Runtime:</div>
+    <div>Language:</div>
+    <div>Genres:</div>
+  </div>
+  <div class="specs-detail-container">
+    <div><span class="label label-success">{{movie.release_date | date:'longDate'}}</span></div>
+    <div><span class="label label-success">{{movie.runtime}} mins</span></div>
+    <div><span class="label label-success">{{movie.original_language === 'en' ? 'English' : movie.original_language}}</span></div>
+    <div><p *ngFor="let genre of movie.genres | limitArrSize:3"><span class="label label-success">{{genre.name}}</span></p></div>
+  </div>
+  <div *ngIf="displayPopup" [ngClass]="{'alert': true, 'alert-success': success, 'alert-danger': !success}" role="alert"><p class="text-center">{{success === true ? 'Success!' : 'Oops, something went wrong. Try later.'}}</p></div>
 </div>
