@@ -33,6 +33,7 @@ export class MovieListComponent implements OnInit {
     this.movieCollectionsService.getCollectionById(this.collectionId).subscribe(
       (movies: MovieCollection) => {
         this.movies = movies;
+        console.log(this.movies);
       }, (err: any) => {console.error(err)}
     );
   }

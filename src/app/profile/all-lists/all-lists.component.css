@@ -1,22 +1,39 @@
-.header {
+.grid-header {
+  display: grid;
+  grid-template-columns: repeat(3fr);
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "left mid right";
   font-family: 'Comfortaa', cursive;
-  margin-bottom: 20px;
+  margin: 30px 0px 30px 0px;
 }
 
-.MovieListsContent {
-  padding-left: 10px;
-  padding-top: 30px;
+.flex-movie-lists {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   font-family: 'Comfortaa', cursive;
 }
 
-.Title {
-  margin-bottom: 40px;
-  font-family: 'Comfortaa', cursive;
+.title-container {
+  grid-area: mid;
+  align-self: end;
+}
+
+.title-container > span {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.create-list-container {
+  grid-area: right;
+  align-self: end;
 }
 
 .img-container {
-  float: left;
   min-height: 282px;
+  max-width: 500px;
   min-width: 500px;
   margin: 25px;
 }
@@ -39,8 +56,4 @@
 
 .collection-count {
     color: gray;
-}
-
-.create-list {
-  margin-left: 900px;
 }

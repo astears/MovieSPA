@@ -1,11 +1,31 @@
-.row-header {
-  margin-left: 110px;
-  margin-right: 110px;
+.options-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 70px;
+  grid-gap: 10px;
+  grid-template-areas:
+  "watchlist favorites all-lists ratings";
+  align-items: center;
+  justify-items: center;
+}
+
+.watchlist-container {
+  grid-area: watchlist;
+}
+
+.favorites-container {
+  grid-area: favorites;
+}
+
+.all-lists-container {
+  grid-area: all-lists;
+}
+
+.ratings-container {
+  grid-area: ratings;
 }
 
 .header-item {
-  margin-left: 30px;
-  margin-top: 30px;
   font-family: 'Comfortaa', cursive;
   font-size: x-large;
   color: gray;
@@ -18,4 +38,8 @@
 
 .active-header {
   color: rgb(88, 151, 0);
+}
+
+.line {
+  margin-top: 0px;
 }

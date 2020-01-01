@@ -1,75 +1,145 @@
-.title {
-  margin-bottom: 40px;
+.grid-header {
+  display: grid;
+  grid-template-columns: repeat(3fr);
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+  "left mid right"
+   "desc desc .";
+  font-family: 'Comfortaa', cursive;
+  margin: 30px 0px 30px 0px;
 }
 
-.movie-wrapper {
+.edit-container {
+  grid-area: right;
+  justify-self: end;
+  align-self: center;
+}
 
-  margin-right: 5px;
-  margin-bottom: 35px;
-  height: 300px;
-  width: 900px;
+.description-container {
+  grid-area: desc;
+  font-size: medium;
+  color: gray;
+  margin-top: 20px;
+}
+
+.flex-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Comfortaa', cursive;
+}
+
+.movie-container {
+  font-family: 'Comfortaa', cursive;
+  width: 700px;
+  height: 262px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 1fr 1fr 1fr 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr 1fr 3fr 1fr);
+  grid-template-areas:
+  "img header header delete"
+  "img rating rating rating"
+  "img body body body"
+  "img footer footer footer";
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05),
    0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 50px;
+  margin-right: 0px;
+  grid-column-gap: 20px;
 }
 
-.movieImg {
-
-  min-height: 325;
+.movie-img {
+  grid-area: img;
 }
 
-.header {
-  font-family: 'Comfortaa', cursive;
-  margin-bottom: 10px;
+.movie-header {
+  grid-area: header;
+  padding-left: 10px;
 }
 
+.release-date-container {
+
+  align-self: center;
+}
+
+.delete {
+  grid-area: delete;
+  justify-self: end;
+}
+
+.rating-container {
+  grid-area: rating;
+  justify-self: start;
+}
+
+.movie-body {
+  grid-area: body;
+  padding: 10px;
+  justify-self: center;
+  align-self: center;
+}
+
+.movie-footer {
+  grid-area: footer;
+  align-self: end;
+  padding-left: 20%;
+  padding-bottom: 10px;
+}
 .responsive {
   width: 100%;
   height: auto;
-  max-height: 273px;
+  display: block;
+  max-height: 262px;
   max-width: 182px;
+  min-width: 182px;
 }
 
-.movie-body-wrapper {
-  height: 200px;
-  max-height: 230px;
-}
-
-.movieTitle {
-  margin-bottom: 15px;
+.movie-title {
   font-size: 25px;
   font-family: 'Lato', sans-serif;
 }
 
-.releaseDate {
-  font-size: 15px;
-  margin-left: 20px;
+.release-date {
   color: gray;
 }
 
-.movieDescription {
-  padding-right: 10px;
+.movie-description {
   font-size: 16px;
   color: rgb(102, 100, 100);
   font-family: 'Lato', sans-serif;
 }
 
-
 .more {
-  margin-top: 5px;
-  color: inherit
+  color: inherit;
+  width: 75%;
+
 }
 
-.more:focus {
-  outline: 0;
+.glyphicon-ring {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid rgb(136, 136, 136);
+  color: rgb(136, 136, 136);
+  display: inline-table;
+  text-align: center;
+  margin-right: 1em;
 }
 
-.outlinedDiv {
-  border-radius: 0;
-  background-color: white;
-  min-height: 278px;
-  max-height: 278px;
-  min-width: 900px;
-  max-width: 900px;
+.glyphicon-ring .glyphicon-bordered {
+  font-size: 13px;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.btn-save {
+  background-color: rgb(0, 128, 0);
+  color: white;
+}
+
+.btn-save:hover {
+  opacity: .9;
 }
 
 .filled {
@@ -78,8 +148,6 @@
 
 .rating-options {
   padding: 0px;
-  margin-bottom: 20px;
-  margin-right: 380px;
   unicode-bidi: bidi-override;
   direction: rtl;
 }
@@ -118,4 +186,8 @@
 .glyphicon-remove:hover {
   cursor: pointer;
   color: rgb(255, 255, 255);
+}
+
+.header {
+  font-family: 'Comfortaa', cursive;
 }
