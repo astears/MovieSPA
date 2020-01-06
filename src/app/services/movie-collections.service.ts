@@ -18,13 +18,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class MovieCollectionsService {
-  private baseApiURL = 'http://localhost:5000/api/moviecollections/';
+  private baseApiURL = 'http://localhost:5000/api/v1/collections';
 
   constructor(private httpClient: HttpClient,
     private factoryService: FactoryService , private authService: AuthService) {}
 
   public createNewCollection(name: string, desc: string) : Observable<any> {
-    let url = this.baseApiURL + 'createcollection';
+    let url = this.baseApiURL;
     let body = this.factoryService.createNewCollectionDto(this.authService.getUid(), name, desc);
 
     return this.httpClient.post(url, body, httpOptions)
@@ -34,17 +34,16 @@ export class MovieCollectionsService {
   }
 
   public deleteCollection(collectionId: number) {
-    let url = this.baseApiURL + 'deletecollection';
-    let body = this.factoryService.createDeleteCollectionDto(collectionId);
+    let url = this.baseApiURL + '/' + collectionId;
 
-    return this.httpClient.post(url, body, httpOptions)
+    return this.httpClient.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   public addMovieToCollection(collectionId: number, movie: Movie) : Observable<any> {
-    let url = this.baseApiURL + 'addMovie';
+    let url = this.baseApiURL + '/' + collectionId + '/movie/' + movie.id;
 
     let movieDto = this.factoryService.createMovieDto(movie);
     let body = this.factoryService.createAddMovieDto(this.authService.getUid(), collectionId, movieDto)
@@ -56,27 +55,26 @@ export class MovieCollectionsService {
   }
 
   public removeMovieFromCollection(collectionId: number, movieId: number) : Observable<any> {
-    let url = this.baseApiURL + 'removeMovie';
-    let body = this.factoryService.createRemoveMovieDto(collectionId, movieId);
+    let url = this.baseApiURL + '/' + collectionId + '/movie/' + movieId;
 
-    return this.httpClient.post(url, body, httpOptions)
+    return this.httpClient.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  public editCollectionInfo(id: number, name: string, description: string) : Observable<any> {
-    let url = this.baseApiURL + 'editCollection';
-    let body = this.factoryService.createEditCollectionInfoDto(this.authService.getUid(), id, name, description);
-    console.log(body);
-    return this.httpClient.post(url, body, httpOptions)
+  public editCollectionInfo(collectionId: number, name: string, description: string) : Observable<any> {
+    let url = this.baseApiURL + `/${collectionId}`;
+    let body = this.factoryService.createEditCollectionInfoDto(this.authService.getUid(), collectionId, name, description);
+
+    return this.httpClient.put(url, body, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   public getCollectionsByUser() : Observable<MovieCollection[]> {
-    let url = this.baseApiURL + this.authService.getUid();
+    let url = this.baseApiURL + '/user/' + this.authService.getUid();
 
     return this.httpClient.get<MovieCollection[]>(url, httpOptions)
     .pipe(
@@ -85,7 +83,7 @@ export class MovieCollectionsService {
   }
 
   public getCollectionById(collectionId: number): Observable<MovieCollection> {
-    let url = this.baseApiURL + this.authService.getUid() + "/collectionId" + `/${collectionId}`;
+    let url = this.baseApiURL + `/${collectionId}`;
 
     return this.httpClient.get<MovieCollection>(url, httpOptions)
     .pipe(
@@ -94,58 +92,12 @@ export class MovieCollectionsService {
   }
 
   public getCollectionByName(collectionName: string): Observable<MovieCollection> {
-    let url = this.baseApiURL + this.authService.getUid() + "/collectionName" + `/${collectionName}`;
+    let url = this.baseApiURL + `/${collectionName}`;
 
     return this.httpClient.get<MovieCollection>(url, httpOptions)
     .pipe(
       catchError(this.handleError)
     );
-  }
-
-  public addToFavorites(movie: Movie) : Observable<any> {
-    let url = this.baseApiURL + 'favorites';
-
-    let movieDto = this.factoryService.createMovieDto(movie);
-    let body = this.factoryService.createFavoritesDto(this.authService.getUid(), movieDto);
-
-    return this.httpClient.post(url, body, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  public addToWatchlist(movie: Movie) : Observable<any> {
-    let url = this.baseApiURL + 'watchlist';
-
-    let movieDto = this.factoryService.createMovieDto(movie);
-    let body = this.factoryService.createWatchlistDto(this.authService.getUid(), movieDto);
-
-    return this.httpClient.post(url, body, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  public removeFromFavorites(movie: Movie) : Observable<any> {
-    let url = this.baseApiURL + 'favorites/remove/' + `${this.authService.getUid()}`;
-
-    let body = this.factoryService.createMovieDto(movie);
-
-    return this.httpClient.post(url, body, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  public removeFromWatchlist(movie: Movie) : Observable<any> {
-    let url = this.baseApiURL + 'watchlist/remove/' + `${this.authService.getUid()}`;
-
-    let body = this.factoryService.createMovieDto(movie);
-
-    return this.httpClient.post(url, body, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
   }
 
   private handleError(error: HttpErrorResponse) {

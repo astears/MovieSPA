@@ -16,13 +16,13 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class MovieRatingsService {
-  private baseApiURL = 'http://localhost:5000/api/ratings/';
+  private baseApiURL = 'http://localhost:5000/api/v1/ratings';
 
   constructor(private httpClient: HttpClient,
     private factoryService: FactoryService , private authService: AuthService) {}
 
   public getRatingsByMovieId(movieId: number) : Observable<any> {
-    let url = this.baseApiURL + 'movieratings' + `/${movieId}`;
+    let url = this.baseApiURL + '/movie' + `/${movieId}`;
 
     return this.httpClient.get<any>(url, httpOptions)
     .pipe(
@@ -31,7 +31,7 @@ export class MovieRatingsService {
   }
 
   public getRatingsByUserId() : Observable<any> {
-    let url = this.baseApiURL + 'userratings' + `/${this.authService.getUid()}`;
+    let url = this.baseApiURL + '/user' + `/${this.authService.getUid()}`;
 
     return this.httpClient.get<any>(url, httpOptions)
     .pipe(
@@ -41,7 +41,7 @@ export class MovieRatingsService {
 
   public addMovieRating(value: number, review: string, movie: Movie) : Observable<any> {
     if (movie === null) {throwError('Movie data is empty')}
-    let url = this.baseApiURL + 'rate';
+    let url = this.baseApiURL;
     let movieDto = this.factoryService.createMovieDto(movie);
     let body = this.factoryService.createRatingDto(this.authService.getUid(), value, review, movieDto);
 
@@ -52,10 +52,9 @@ export class MovieRatingsService {
   }
 
   public deleteMovieRating(movieId: number) {
-    let url = this.baseApiURL + 'deleteRating';
-    let body = this.factoryService.createDeleteMovieRatingDto(this.authService.getUid(), movieId);
+    let url = this.baseApiURL + `/${this.authService.getUid()}/${movieId}`;
 
-    return this.httpClient.post(url, body, httpOptions)
+    return this.httpClient.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
