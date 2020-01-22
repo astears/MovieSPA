@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { MovieDbQuery } from '../Models/MovieDbQuery';
-import { MovieResults } from '../Models/MovieResults';
-import { QueryFilter } from '../Models/QueryFilter';
-import { NewCollectionDto } from '../DTOs/NewCollectionDto';
-import { MovieDto } from '../DTOs/MovieDto';
-import { AddMovieDto } from '../DTOs/AddMovieDto';
-import { RemoveMovieDto } from '../DTOs/RemovieMovieDto';
-import { EditCollectionInfoDto } from '../DTOs/EditCollectionInfoDto';
-import { RatingDto } from '../DTOs/RatingDto';
-import { WatchlistDto } from '../DTOs/WatchlistDto';
-import { FavoritesDto } from '../DTOs/FavoritesDto';
-import { GenreDto } from '../DTOs/GenreDto';
-import { Movie } from '../Models/Movie';
-import { IGenre } from '../Models/IGenre';
-import { DeleteCollectionDto } from '../DTOs/DeleteCollectionDto';
-import { DeleteMovieRatingDto } from '../DTOs/DeleteMovieRatingDto';
+import { MovieDbQueryDto } from '../contracts/TheMovieDB/DTOs/MovieDbQueryDto';
+import { MovieResults } from '../models/TheMovieDB/MovieDBResults';
+import { NewCollectionDto } from '../contracts/zMoviesAPI/DTOs/NewCollectionDto';
+import { MovieDto } from '../contracts/zMoviesAPI/DTOs/MovieDto';
+import { AddMovieDto } from '../contracts/zMoviesAPI/DTOs/AddMovieDto';
+import { RemoveMovieDto } from '../contracts/zMoviesAPI/DTOs/RemovieMovieDto';
+import { EditCollectionInfoDto } from '../contracts/zMoviesAPI/DTOs/EditCollectionInfoDto';
+import { RatingDto } from '../contracts/zMoviesAPI/DTOs/RatingDto';
+import { WatchlistDto } from '../contracts/zMoviesAPI/DTOs/WatchlistDto';
+import { FavoritesDto } from '../contracts/zMoviesAPI/DTOs/FavoritesDto';
+import { GenreDto } from '../contracts/zMoviesAPI/DTOs/GenreDto';
+import { Movie } from '../models/zMoviesAPI/Movie';
+import { Genre } from '../models/zMoviesAPI/Genre';
+import { DeleteCollectionDto } from '../contracts/zMoviesAPI/DTOs/DeleteCollectionDto';
+import { DeleteMovieRatingDto } from '../contracts/zMoviesAPI/DTOs/DeleteMovieRatingDto';
+import { MovieDBMovie } from '../models/TheMovieDB/MovieDBMovie';
+import { MovieDBGenre } from '../models/TheMovieDB/MovieDBGenre';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,10 @@ export class FactoryService {
 
   constructor() {}
 
-  public createMovieDbQuery(subcategory: string, filter: QueryFilter, page: number) : MovieDbQuery {
+  public createMovieDbQuery(subcategory: string, page: number) : MovieDbQueryDto {
 
-    let query = new MovieDbQuery();
+    let query = new MovieDbQueryDto();
     query.subcategory = subcategory;
-    query.filter = filter;
     query.page = page;
 
     return query;
@@ -41,15 +41,6 @@ export class FactoryService {
     movieResults.totalPages = totalPages;
 
     return movieResults;
-  }
-
-  public createQueryFilter(genre: string, sortBy: string, year: number) : QueryFilter {
-    let filter = new QueryFilter();
-    filter.genre = genre;
-    filter.sortBy = sortBy;
-    filter.year = year;
-
-    return filter;
   }
 
   public createNewCollectionDto(uid: number, name: string, desc: string) : NewCollectionDto{
@@ -84,7 +75,7 @@ export class FactoryService {
     return new FavoritesDto(uid, movie);
   }
 
-  public createMovieDto(movie: Movie) : MovieDto {
+  public createMovieDto(movie: MovieDBMovie) : MovieDto {
 
     let genres = this.createGenreDtos(movie.genres);
 
@@ -93,10 +84,10 @@ export class FactoryService {
         movie.original_language, movie.popularity, genres);
   }
 
-  public createGenreDtos(genres: IGenre[]) : GenreDto[] {
+  public createGenreDtos(genres: MovieDBGenre[]) : GenreDto[] {
     let genreDtos : GenreDto[] = [];
 
-    genres.forEach((genre: IGenre) => {genreDtos.push(new GenreDto(genre.id, genre.name))});
+    genres.forEach((genre: Genre) => {genreDtos.push(new GenreDto(genre.id, genre.name))});
 
     return genreDtos;
   }

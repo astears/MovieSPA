@@ -4,9 +4,10 @@ import { AuthService } from './auth.service';
 import { FactoryService } from './factory.service';
 import { throwError, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { MovieDto } from '../DTOs/MovieDto';
-import { MovieCollection } from '../Models/MovieCollection';
-import { Movie } from '../Models/Movie';
+import { MovieDto } from '../contracts/zMoviesAPI/DTOs/MovieDto';
+import { MovieCollection } from '../models/zMoviesAPI/MovieCollection';
+import { Movie } from '../models/zMoviesAPI/Movie';
+import { MovieDBMovie } from '../models/TheMovieDB/MovieDBMovie';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -42,7 +43,7 @@ export class MovieCollectionsService {
       );
   }
 
-  public addMovieToCollection(collectionId: number, movie: Movie) : Observable<any> {
+  public addMovieToCollection(collectionId: number, movie: MovieDBMovie) : Observable<any> {
     let url = this.baseApiURL + '/' + collectionId + '/movie/' + movie.id;
 
     let movieDto = this.factoryService.createMovieDto(movie);
@@ -66,7 +67,7 @@ export class MovieCollectionsService {
   public editCollectionInfo(collectionId: number, name: string, description: string) : Observable<any> {
     let url = this.baseApiURL + `/${collectionId}`;
     let body = this.factoryService.createEditCollectionInfoDto(this.authService.getUid(), collectionId, name, description);
-
+    console.log(body);
     return this.httpClient.put(url, body, httpOptions)
       .pipe(
         catchError(this.handleError)

@@ -1,9 +1,9 @@
 <div class="container">
   <div class="grid-header">
       <h2 class="title">
-        {{movies?.name}}
+        {{collection?.name}}
       </h2>
-      <p class="description-container">{{movies?.description}}</p>
+      <p class="description-container">{{collection?.description}}</p>
       <div class="edit-container">
         <button class="btn btn-default" data-toggle="modal" data-target="#editListModal">
           Edit List
@@ -11,19 +11,19 @@
       </div>
   </div>
 
-<div *ngIf="movies?.movieToMovieCollections.length === 0" class="no-results">
+<div *ngIf="collection?.movies.length === 0" class="no-results">
   <h3>No movies added - <span><a routerLink="../../../movies">search movies</a></span></h3>
 </div>
 <div class="flex-content">
-  <div class="movie-container" *ngFor="let movie of movies?.movieToMovieCollections">
+  <div class="movie-container" *ngFor="let movie of collection?.movies">
     <div class="movie-img">
       <img class="responsive"
-          [src]="'https://image.tmdb.org/t/p/w780' + movie.movie.posterURL"
+          [src]="'https://image.tmdb.org/t/p/w780' + movie.posterURL"
           [alt]="movie.title"/>
     </div>
     <div class="movie-header">
-      <h4 class="movie-title">{{movie.movie.title === undefined ? movie.movie.name : movie.movie.title}}</h4>
-      <p class="release-date">{{movie.movie.releaseDate | date:'longDate'}}</p>
+      <h4 class="movie-title">{{movie.title === undefined ? '' : movie.title}}</h4>
+      <p class="release-date">{{movie.releaseDate | date:'longDate'}}</p>
     </div>
     <div class="delete">
       <div (click)="movieToRemove = movie" type="button" class="glyphicon-ring" style="margin-top: 10px;" data-toggle="modal" data-target="#myModal">
@@ -31,10 +31,10 @@
       </div>
     </div>
     <div class="movie-body">
-      <p class="movie-description">{{movie.movie.overview | truncate}}</p>
+      <p class="movie-description">{{movie.overview | truncate}}</p>
     </div>
     <div class="movie-footer">
-      <button [routerLink]="['/movie-detail', movie.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
+      <button [routerLink]="['/movie-detail', movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
     </div>
   </div>
 </div>
@@ -68,16 +68,16 @@
             <div class="form-group">
               <label for="list-title" class="control-label">List Title:</label>
               <input type="text" class="form-control" id="list-title"
-                     [readonly]="movies?.name === 'Favorites' || movies?.name === 'Watchlist'"
-                     required [ngModel]="movies?.name" name="title">
+                     [readonly]="collection?.name === 'Favorites' || collection?.name === 'Watchlist'"
+                     required [ngModel]="collection?.name" name="title">
             </div>
             <div class="form-group">
               <label for="list-description" class="control-label">Description:</label>
-              <textarea class="form-control" id="list-description" required [ngModel]="movies?.description" name="description"></textarea>
+              <textarea class="form-control" id="list-description" required [ngModel]="collection?.description" name="description"></textarea>
             </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="movies?.name !== 'Favorites' && movies?.name !== 'Watchlist'"
+          <button *ngIf="collection?.name !== 'Favorites' && collection?.name !== 'Watchlist'"
                   type="button" class="btn btn-danger pull-left" data-dismiss="modal"
                   (click)="deleteList()">Delete List</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>

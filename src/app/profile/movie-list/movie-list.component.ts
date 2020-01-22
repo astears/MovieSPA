@@ -1,8 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieCollectionsService } from 'src/app/services/movie-collections.service';
-import { MovieCollection } from 'src/app/Models/MovieCollection';
+import { MovieCollection } from 'src/app/models/zMoviesAPI/MovieCollection';
 import { NgForm } from '@angular/forms';
+import { Movie } from 'src/app/models/zMoviesAPI/Movie';
 
 @Component({
   selector: 'app-movie-list',
@@ -11,8 +12,8 @@ import { NgForm } from '@angular/forms';
 })
 export class MovieListComponent implements OnInit {
   collectionId: number;
-  movies: MovieCollection;
-  movieToRemove: any;
+  collection: MovieCollection;
+  movieToRemove: Movie;
   showModal = false;
   dropdownIsOpen = false;
 
@@ -32,15 +33,15 @@ export class MovieListComponent implements OnInit {
   public getMovies() {
     this.movieCollectionsService.getCollectionById(this.collectionId).subscribe(
       (movies: MovieCollection) => {
-        this.movies = movies;
-        console.log(this.movies);
+        this.collection = movies;
+        console.log(this.collection);
       }, (err: any) => {console.error(err)}
     );
   }
 
   public removeMovie() {
     console.log(this.movieToRemove);
-    this.movieCollectionsService.removeMovieFromCollection(this.collectionId, this.movieToRemove.movieId).subscribe(
+    this.movieCollectionsService.removeMovieFromCollection(this.collectionId, this.movieToRemove.id).subscribe(
       (data: any) => {
         this.getMovies();
       }, (err: any) => {console.log(err);}
@@ -58,7 +59,7 @@ export class MovieListComponent implements OnInit {
   }
 
   public deleteList() {
-    this.movieCollectionsService.deleteCollection(this.movies.id).subscribe(
+    this.movieCollectionsService.deleteCollection(this.collection.id).subscribe(
       (data: any) => {
         console.log(data);
         this.router.navigateByUrl('profile/all-lists').then(

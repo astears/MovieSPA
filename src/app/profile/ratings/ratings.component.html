@@ -5,79 +5,40 @@
       </h2>
   </div>
 
-<div *ngIf="movies.length === 0" class="no-results">
+<div *ngIf="ratings.length === 0" class="no-results">
   <h3>No ratings - <span><a routerLink="../../movies">search movies</a></span></h3>
 </div>
 
 <div class="flex-content">
-  <div class="movie-container" *ngFor="let movie of movies">
+  <div class="movie-container" *ngFor="let rating of ratings">
     <div class="movie-img">
       <img class="responsive"
-          [src]="'https://image.tmdb.org/t/p/w780' + movie.movie.posterURL"
-          [alt]="movie.title"/>
+          [src]="'https://image.tmdb.org/t/p/w780' + rating.movie.posterURL"
+          [alt]="rating.movie.title"/>
     </div>
     <div class="movie-header">
-      <h4 class="movie-title">{{movie.movie.title === undefined ? movie.movie.name : movie.movie.title}}</h4>
+      <h4 class="movie-title">{{rating.movie.title === undefined ? '' : rating.movie.title}}</h4>
     </div>
     <div class="delete">
-      <div (click)="deleteRating(movie.movieId)" type="button" class="glyphicon-ring" style="margin-top: 10px;" data-toggle="modal" data-target="#myModal">
+      <div (click)="deleteRating(rating.movie.id)" type="button" class="glyphicon-ring" style="margin-top: 10px;" data-toggle="modal" data-target="#myModal">
         <span class="glyphicon glyphicon-remove glyphicon-bordered"></span>
       </div>
     </div>
     <div class="rating-container">
       <div class="rating-options">
-        <span id="star5" [ngClass]="{'filled': movie.rating.value >= 5}" class="glyphicon glyphicon-star"></span>
-        <span id="star4" [ngClass]="{'filled': movie.rating.value >= 4}"  class="glyphicon glyphicon-star"></span>
-        <span id="star3" [ngClass]="{'filled': movie.rating.value >= 3}"  class="glyphicon glyphicon-star"></span>
-        <span id="star2" [ngClass]="{'filled': movie.rating.value >= 2}"class="glyphicon glyphicon-star"></span>
-        <span id="star1" [ngClass]="{'filled': movie.rating.value >= 1}" class="glyphicon glyphicon-star"></span>
+        <span id="star5" [ngClass]="{'filled': rating.value >= 5}" class="glyphicon glyphicon-star"></span>
+        <span id="star4" [ngClass]="{'filled': rating.value >= 4}"  class="glyphicon glyphicon-star"></span>
+        <span id="star3" [ngClass]="{'filled': rating.value >= 3}"  class="glyphicon glyphicon-star"></span>
+        <span id="star2" [ngClass]="{'filled': rating.value >= 2}"class="glyphicon glyphicon-star"></span>
+        <span id="star1" [ngClass]="{'filled': rating.value >= 1}" class="glyphicon glyphicon-star"></span>
       </div>
     </div>
     <div class="movie-body">
-      <p class="movie-description">{{movie.movie.overview | truncate}}</p>
+      <p class="movie-description">{{rating.movie.overview | truncate}}</p>
     </div>
     <div class="movie-footer">
-      <button [routerLink]="['/movie-detail', movie.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
+      <button [routerLink]="['/movie-detail', rating.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
     </div>
   </div>
 </div>
-
-<!--<div *ngFor="let movie of movies" class="movie-wrapper">
-  <div class="outlinedDiv">
-    <div class="row">
-      <div class="col-xs-4">
-          <img class="movieImg responsive"
-            [src]="'https://image.tmdb.org/t/p/w780' + movie.movie.posterURL"
-            [alt]="movie.movie.title"/>
-
-      </div>
-      <div class="col-xs-7">
-        <div class="movie-body-wrapper">
-            <div class="movieTitle">
-              {{movie.movie.title === undefined ? '' : movie.movie.title}}<span class="releaseDate"> {{ ' - ' + movie.movie.releaseDate | date:'longDate'}}</span>
-            </div>
-            <div class="rating-options">
-              <span id="star5" [ngClass]="{'filled': movie.rating.value >= 5}" class="glyphicon glyphicon-star"></span>
-              <span id="star4" [ngClass]="{'filled': movie.rating.value >= 4}"  class="glyphicon glyphicon-star"></span>
-              <span id="star3" [ngClass]="{'filled': movie.rating.value >= 3}"  class="glyphicon glyphicon-star"></span>
-              <span id="star2" [ngClass]="{'filled': movie.rating.value >= 2}"class="glyphicon glyphicon-star"></span>
-              <span id="star1" [ngClass]="{'filled': movie.rating.value >= 1}" class="glyphicon glyphicon-star"></span>
-            </div>
-            <p class="movieDescription">{{movie.movie.overview | truncate}}</p>
-        </div>
-
-        <div class="row">
-          <div class="col-xs-10 ">
-              <button [routerLink]="['/movie-detail', movie.movie.movieDbId]" type="button" class="btn btn-block btn-default more">More</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-1">
-        <div (click)="deleteRating(movie.movieId)" type="button" class="glyphicon-ring" style="margin-top: 10px;">
-          <span class="glyphicon glyphicon-remove glyphicon-bordered"></span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
 </div>

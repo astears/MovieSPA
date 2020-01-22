@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieRatingsService } from 'src/app/services/movie-ratings.service';
+import { Rating } from 'src/app/models/zMoviesAPI/Rating';
 
 @Component({
   selector: 'app-ratings',
@@ -7,7 +8,7 @@ import { MovieRatingsService } from 'src/app/services/movie-ratings.service';
   styleUrls: ['./ratings.component.css']
 })
 export class RatingsComponent implements OnInit {
-  movies: any[] = [];
+  ratings: Rating[] = [];
   constructor(private ratingsService: MovieRatingsService) { }
 
   ngOnInit() {
@@ -16,12 +17,9 @@ export class RatingsComponent implements OnInit {
 
   public getUserRatings() {
     this.ratingsService.getRatingsByUserId().subscribe(
-      (data: any) => {
-        console.log(data.movieRatingsByUser);
-        this.movies = [];
-        data.movieRatingsByUser.forEach(rating => {
-          this.movies.push(rating);
-        });
+      (data: Rating[]) => {
+        console.log(data);
+        this.ratings = data;
       }, (err: any) => {console.error(err);}
     );
   }

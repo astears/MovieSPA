@@ -1,6 +1,6 @@
-import { IGenre } from './IGenre';
+import { MovieDBGenre } from './MovieDBGenre';
 
-export class Movie {
+export class MovieDBMovie {
     title: string;
     overview: string;
     runtime: number;
@@ -12,5 +12,5 @@ export class Movie {
     budget: number;
     original_language: string;
     popularity: number;
-    genres: IGenre[];
+    genres: MovieDBGenre[];
 }

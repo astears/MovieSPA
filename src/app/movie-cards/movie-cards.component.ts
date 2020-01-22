@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MOVIEAPI } from "../constants/StringConstants";
 import { PageService } from '../services/page.service';
 import { MoviesService } from '../services/movies.service';
-import { MovieDbQuery } from '../Models/MovieDbQuery';
-import { MovieResults } from '../Models/MovieResults';
+import { MovieDbQueryDto } from '../contracts/TheMovieDB/DTOs/MovieDbQueryDto';
+import { MovieResults } from '../models/TheMovieDB/MovieDBResults';
 import { FactoryService } from '../services/factory.service';
 import { MovieCollectionsService } from '../services/movie-collections.service';
+import { MovieDBMovie } from '../models/TheMovieDB/MovieDBMovie';
 
 @Component({
   selector: 'app-movie-cards-shows',
@@ -15,7 +16,7 @@ import { MovieCollectionsService } from '../services/movie-collections.service';
 export class MovieCardsComponent implements OnInit {
 
   public category: string;
-  public movies: any[] = [];
+  public movies: MovieDBMovie[] = [];
   public pagination: string[];
 
   constructor(private moviesService: MoviesService,
@@ -50,7 +51,7 @@ export class MovieCardsComponent implements OnInit {
   }
 
   private initializeMovieSource() {
-    let query = this.factoryService.createMovieDbQuery(this.category, null, this.pageService.selectedPage);
+    let query = this.factoryService.createMovieDbQuery(this.category, this.pageService.selectedPage);
 
     this.moviesService.publishMovies(query);
   }

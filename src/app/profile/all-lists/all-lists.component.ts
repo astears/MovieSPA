@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieCollectionsService } from 'src/app/services/movie-collections.service';
-import { MovieCollection } from 'src/app/Models/MovieCollection';
+import { MovieCollection } from 'src/app/models/zMoviesAPI/MovieCollection';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./all-lists.component.css']
 })
 export class AllListsComponent implements OnInit {
-  movieLists: MovieCollection[];
+  allMovieCollections: MovieCollection[];
   constructor(private movieCollections: MovieCollectionsService) { }
 
   ngOnInit() {
@@ -19,8 +19,8 @@ export class AllListsComponent implements OnInit {
   public getUserCollections() {
     this.movieCollections.getCollectionsByUser().subscribe(
       (collection: MovieCollection[]) => {
-        this.movieLists = collection;
-        console.log(this.movieLists)
+        this.allMovieCollections = collection;
+        console.log(this.allMovieCollections)
       },
       (error: any) => {
         console.log('error getting movie collections');

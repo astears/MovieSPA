@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
-import { MovieResults } from 'src/app/Models/MovieResults';
-import { QueryFilter } from 'src/app/Models/QueryFilter';
-import { MovieDbQuery } from 'src/app/Models/MovieDbQuery';
+import { MovieResults } from 'src/app/models/TheMovieDB/MovieDBResults';
+import { MovieDbQueryDto } from 'src/app/contracts/TheMovieDB/DTOs/MovieDbQueryDto';
 import { FactoryService } from './factory.service';
 import { MOVIEAPI } from '../constants/StringConstants';
 import { PageService } from './page.service';
+import { Movie } from '../models/zMoviesAPI/Movie';
 
 @Injectable({
   providedIn: 'root'
@@ -20,46 +20,30 @@ export class MoviesService {
   constructor(private httpClient: HttpClient,
     private factoryService: FactoryService, private pageService: PageService) {}
 
-  public publishMovies(query: MovieDbQuery) : void {
+  public publishMovies(query: MovieDbQueryDto) : void {
     let movies: MovieResults;
     let queryString = `https://api.themoviedb.org/3/movie/${query.subcategory}?api_key=fe154f97538186642f6f894b1181689f&language=en-US&page=${query.page}`;
 
-    if (query.filter !== null) {
-      queryString = this.addQueryFilters(queryString, query.filter);
-    }
-
-    this.httpClient.get(queryString).subscribe(
-      (res: any) => {
-        movies = this.factoryService.createMovieResults(this.activeCategory, res.results, res.total_pages);
-        this.movieSource.next(movies);
-      });
-  }
-
-  private addQueryFilters(queryString: string, filter: QueryFilter) : string {
-
-    queryString += `&sort_by=${filter.sortBy}&include_adult=false&include_video=false`;
-
-    if (filter.genre !== '-1') {
-      queryString += `&with_genres=${filter.genre}`;
-    }
-    if (filter.year !== -1) {
-        queryString += `&year=${filter.year}`;
-    }
-
-    return queryString;
+    this.httpClient.get(queryString)
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          movies = this.factoryService.createMovieResults(this.activeCategory, res.results, res.total_pages);
+          this.movieSource.next(movies);
+        });
   }
 
   public changeMovieCategory(category: string) : void {
     this.pageService.selectedPage = 1;
     this.activeCategory = category;
-    let query = this.factoryService.createMovieDbQuery(category, null, this.pageService.selectedPage);
+    let query = this.factoryService.createMovieDbQuery(category, this.pageService.selectedPage);
 
     this.publishMovies(query);
   }
 
   public getMoviesWithPage(pageNumber: number) {
     this.pageService.selectedPage = pageNumber;
-    let query = this.factoryService.createMovieDbQuery(this.activeCategory, null, pageNumber);
+    let query = this.factoryService.createMovieDbQuery(this.activeCategory, pageNumber);
 
     this.publishMovies(query);
   }

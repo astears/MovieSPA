@@ -1,4 +1,4 @@
-export interface IGenre {
+export class MovieDBGenre {
   id: number;
   name: string;
 }

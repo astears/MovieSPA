@@ -1,5 +1,5 @@
 import { MovieDto } from './MovieDto';
-import { MovieDbQuery } from '../Models/MovieDbQuery';
+import { MovieDbQueryDto } from '../../TheMovieDB/DTOs/MovieDbQueryDto';
 
 export class RemoveMovieDto {
   public collectionId: number;

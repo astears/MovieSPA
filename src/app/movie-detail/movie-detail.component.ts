@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '../../../node_modules/@angular/router';
 import { MoviesService} from '../services/movies.service';
 import { MovieCollectionsService } from '../services/movie-collections.service';
-import { Movie } from '../Models/Movie';
 import { MovieRatingsService } from '../services/movie-ratings.service';
-import { MovieCollection } from '../Models/MovieCollection';
+import { MovieCollection } from '../models/zMoviesAPI/MovieCollection';
+import { MovieDBMovie } from '../models/TheMovieDB/MovieDBMovie';
+import { Rating } from '../models/zMoviesAPI/Rating';
 
 @Component({
   selector: 'app-movie-detail',
@@ -14,7 +15,7 @@ import { MovieCollection } from '../Models/MovieCollection';
 export class MovieDetailComponent implements OnInit {
 
   private movieId: number;
-  movie: Movie = new Movie();
+  movie: MovieDBMovie = new MovieDBMovie();
   collections: MovieCollection[];
   selectedCollection: MovieCollection;
   favorites: MovieCollection;
@@ -46,7 +47,7 @@ export class MovieDetailComponent implements OnInit {
 
   public getMovieDetails() {
     this.moviesService.getMovieDetails(this.movieId).subscribe(
-      (movieInfo: Movie) => {
+      (movieInfo: MovieDBMovie) => {
         this.movie = movieInfo;
         this.getUsersActionsOnMovie();
         this.setBackgroundStyle();
@@ -57,11 +58,11 @@ export class MovieDetailComponent implements OnInit {
   public getUsersActionsOnMovie() {
     // Get user ratings, to see if user has rated this movie
     this.ratingsService.getRatingsByUserId().subscribe(
-      (ratings: any) => {
-        ratings.movieRatingsByUser.forEach(rating => {
+      (ratings: Rating[]) => {
+        ratings.forEach(rating => {
           if (rating.movie.movieDbId === this.movie.id) {
             this.isRated = true;
-            this.fillStarRatings(rating.rating.value);
+            this.fillStarRatings(rating.value);
           }
         });
       }, (err: any) => {console.error(err)}
@@ -82,16 +83,16 @@ export class MovieDetailComponent implements OnInit {
     this.collections.forEach(collection => {
       if (collection.name === 'Favorites') {
         this.favorites = collection;
-        collection.movieToMovieCollections.forEach(mmc => {
-          if (mmc.movie.movieDbId === this.movie.id) {
+        collection.movies.forEach(mmc => {
+          if (mmc.movieDbId === this.movie.id) {
             this.isFavorite = true;
           }
         });
       }
       else if (collection.name === 'Watchlist') {
         this.watchlist = collection;
-        collection.movieToMovieCollections.forEach(mmc => {
-          if (mmc.movie.movieDbId === this.movie.id) {
+        collection.movies.forEach(mmc => {
+          if (mmc.movieDbId === this.movie.id) {
             this.isWatchlisted= true;
           }
         });
@@ -114,9 +115,9 @@ export class MovieDetailComponent implements OnInit {
     else {
 
       let movieToRemove;
-      this.favorites.movieToMovieCollections.forEach(item => {
-        if (item.movie.movieDbId === this.movie.id) {
-          movieToRemove = item.movieId;
+      this.favorites.movies.forEach(item => {
+        if (item.movieDbId === this.movie.id) {
+          movieToRemove = item.id;
         }
       });
 
@@ -145,9 +146,9 @@ export class MovieDetailComponent implements OnInit {
     } // If already watchlisted, remove
     else {
       let movieToRemove;
-      this.watchlist.movieToMovieCollections.forEach(item => {
-        if (item.movie.movieDbId === this.movie.id) {
-          movieToRemove = item.movieId;
+      this.watchlist.movies.forEach(item => {
+        if (item.movieDbId === this.movie.id) {
+          movieToRemove = item.id;
         }
       });
       this.movieCollectionsService.removeMovieFromCollection(this.watchlist.id, movieToRemove).subscribe(
@@ -171,17 +172,33 @@ export class MovieDetailComponent implements OnInit {
   }
 
   public applyRating(rating: number) {
-    this.ratingsService.addMovieRating(rating, "", this.movie).subscribe(
-      (data: any) => {
-        this.isRated = true;
-        this.fillStarRatings(rating);
-        this.giveUserFeedback(true);
-      },
-      (err: any) => {
-        this.giveUserFeedback(false);
-        console.error(err)
-      }
-    )
+    if (this.isRated == false) {
+      this.ratingsService.addMovieRating(rating, "", this.movie).subscribe(
+        (data: any) => {
+          this.isRated = true;
+          this.fillStarRatings(rating);
+          this.giveUserFeedback(true);
+        },
+        (err: any) => {
+          this.giveUserFeedback(false);
+          console.error(err)
+        }
+      )
+    }
+    else {
+      this.ratingsService.updateMovieRating(rating, "", this.movie).subscribe(
+        (data: any) => {
+          this.isRated = true;
+          this.fillStarRatings(rating);
+          this.giveUserFeedback(true);
+        },
+        (err: any) => {
+          this.giveUserFeedback(false);
+          console.error(err)
+        }
+      )
+    }
+
   }
 
   public fillStarRatings(rating: number) {

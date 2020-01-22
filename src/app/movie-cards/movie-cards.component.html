@@ -9,7 +9,7 @@
           [alt]="movie.title"/>
     </div>
     <div class="movie-header">
-      <h4 class="movie-title">{{movie.title === undefined ? movie.name : movie.title}}</h4>
+      <h4 class="movie-title">{{movie.title === undefined ? '' : movie.title}}</h4>
       <p class="release-date">{{movie.release_date | date:'longDate'}}</p>
     </div>
     <div class="movie-body">
