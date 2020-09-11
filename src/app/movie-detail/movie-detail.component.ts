@@ -60,7 +60,7 @@ export class MovieDetailComponent implements OnInit {
     this.ratingsService.getRatingsByUserId().subscribe(
       (ratings: Rating[]) => {
         ratings.forEach(rating => {
-          if (rating.movie.movieDbId === this.movie.id) {
+          if (rating.movie.movieId === this.movie.id) {
             this.isRated = true;
             this.fillStarRatings(rating.value);
           }
@@ -73,18 +73,18 @@ export class MovieDetailComponent implements OnInit {
       (collections: MovieCollection[]) => {
         this.collections = collections;
         this.selectedCollection = this.collections[0];
+        console.log(this.collections)
         this.checkIsFavoriteIsWatchlist()
       }, (error: any) => {console.error(error);}
     );
   }
 
   public checkIsFavoriteIsWatchlist() {
-
     this.collections.forEach(collection => {
       if (collection.name === 'Favorites') {
         this.favorites = collection;
         collection.movies.forEach(mmc => {
-          if (mmc.movieDbId === this.movie.id) {
+          if (mmc.movieId === this.movie.id) {
             this.isFavorite = true;
           }
         });
@@ -92,7 +92,7 @@ export class MovieDetailComponent implements OnInit {
       else if (collection.name === 'Watchlist') {
         this.watchlist = collection;
         collection.movies.forEach(mmc => {
-          if (mmc.movieDbId === this.movie.id) {
+          if (mmc.movieId === this.movie.id) {
             this.isWatchlisted= true;
           }
         });
@@ -113,15 +113,7 @@ export class MovieDetailComponent implements OnInit {
       });
     } // If already on favorites, remove
     else {
-
-      let movieToRemove;
-      this.favorites.movies.forEach(item => {
-        if (item.movieDbId === this.movie.id) {
-          movieToRemove = item.id;
-        }
-      });
-
-      this.movieCollectionsService.removeMovieFromCollection(this.favorites.id, movieToRemove).subscribe(
+      this.movieCollectionsService.removeMovieFromCollection(this.favorites.id, this.movieId).subscribe(
         (res: any) => {
           this.isFavorite = false;
           this.giveUserFeedback(true);
@@ -145,13 +137,7 @@ export class MovieDetailComponent implements OnInit {
       });
     } // If already watchlisted, remove
     else {
-      let movieToRemove;
-      this.watchlist.movies.forEach(item => {
-        if (item.movieDbId === this.movie.id) {
-          movieToRemove = item.id;
-        }
-      });
-      this.movieCollectionsService.removeMovieFromCollection(this.watchlist.id, movieToRemove).subscribe(
+      this.movieCollectionsService.removeMovieFromCollection(this.watchlist.id, this.movieId).subscribe(
         (res: any) => {
           this.isWatchlisted = false;
           this.giveUserFeedback(true);

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MovieCollectionsService } from 'src/app/services/movie-collections.service';
 import { MovieCollection } from 'src/app/models/zMoviesAPI/MovieCollection';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-all-lists',
@@ -10,7 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AllListsComponent implements OnInit {
   allMovieCollections: MovieCollection[];
-  constructor(private movieCollections: MovieCollectionsService) { }
+  constructor(private movieCollections: MovieCollectionsService, private moviesService: MoviesService) { }
 
   ngOnInit() {
     this.getUserCollections();
@@ -26,6 +28,11 @@ export class AllListsComponent implements OnInit {
         console.log('error getting movie collections');
       }
     );
+  }
+
+  public getMovieBackdrop(movieId: number) : Observable<string> {
+    console.log(movieId)
+    return this.moviesService.getMovieBackdrop(movieId);
   }
 
   public onSubmitList(form: NgForm) {

@@ -29,6 +29,10 @@ export class MovieCardsComponent implements OnInit {
     this.initializeMovieSource();
   }
 
+  someMathe() {
+
+  }
+
   private subscribeToMovieChanges() {
     this.moviesService.movieSource.subscribe(
       (movies: MovieResults) => {

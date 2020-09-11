@@ -3,8 +3,6 @@ import { FactoryService } from './factory.service';
 import { AuthService } from './auth.service';
 import { throwError, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { MovieDto } from '../contracts/zMoviesAPI/DTOs/MovieDto';
-import { Movie } from '../models/zMoviesAPI/Movie';
 import { Injectable } from '@angular/core';
 import { MovieDBMovie } from '../models/TheMovieDB/MovieDBMovie';
 
@@ -43,8 +41,7 @@ export class MovieRatingsService {
   public addMovieRating(value: number, review: string, movie: MovieDBMovie) : Observable<any> {
     if (movie === null) {throwError('Movie data is empty')}
     let url = this.baseApiURL;
-    let movieDto = this.factoryService.createMovieDto(movie);
-    let body = this.factoryService.createRatingDto(this.authService.getUid(), value, review, movieDto);
+    let body = this.factoryService.createRatingDto(this.authService.getUid(), value, review, movie.id);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(
@@ -53,10 +50,8 @@ export class MovieRatingsService {
   }
 
   public updateMovieRating(value: number, review: string, movie: MovieDBMovie) : Observable<any> {
-    if (movie === null) {throwError('Movie data is empty')}
     let url = this.baseApiURL;
-    let movieDto = this.factoryService.createMovieDto(movie);
-    let body = this.factoryService.createRatingDto(this.authService.getUid(), value, review, movieDto);
+    let body = this.factoryService.createRatingDto(this.authService.getUid(), value, review, movie.id);
 
     return this.httpClient.put(url, body, httpOptions)
       .pipe(

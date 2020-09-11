@@ -46,8 +46,7 @@ export class MovieCollectionsService {
   public addMovieToCollection(collectionId: number, movie: MovieDBMovie) : Observable<any> {
     let url = this.baseApiURL + '/' + collectionId + '/movie/' + movie.id;
 
-    let movieDto = this.factoryService.createMovieDto(movie);
-    let body = this.factoryService.createAddMovieDto(this.authService.getUid(), collectionId, movieDto)
+    let body = this.factoryService.createAddMovieDto(this.authService.getUid(), collectionId, movie.id);
 
     return this.httpClient.post(url, body, httpOptions)
       .pipe(

@@ -4,13 +4,13 @@ export class RatingDto {
   public uid: number;
   public value: number;
   public review: string;
-  public movie: MovieDto;
+  public movieId: number;
 
-  constructor(uid: number, value: number, review: string, movie: MovieDto) {
+  constructor(uid: number, value: number, review: string, movieId: number) {
 
       this.uid = uid;
       this.value = value;
       this.review = review;
-      this.movie = movie;
+      this.movieId = movieId;
   }
 }

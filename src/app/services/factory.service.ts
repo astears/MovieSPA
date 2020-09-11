@@ -9,13 +9,8 @@ import { EditCollectionInfoDto } from '../contracts/zMoviesAPI/DTOs/EditCollecti
 import { RatingDto } from '../contracts/zMoviesAPI/DTOs/RatingDto';
 import { WatchlistDto } from '../contracts/zMoviesAPI/DTOs/WatchlistDto';
 import { FavoritesDto } from '../contracts/zMoviesAPI/DTOs/FavoritesDto';
-import { GenreDto } from '../contracts/zMoviesAPI/DTOs/GenreDto';
-import { Movie } from '../models/zMoviesAPI/Movie';
-import { Genre } from '../models/zMoviesAPI/Genre';
 import { DeleteCollectionDto } from '../contracts/zMoviesAPI/DTOs/DeleteCollectionDto';
 import { DeleteMovieRatingDto } from '../contracts/zMoviesAPI/DTOs/DeleteMovieRatingDto';
-import { MovieDBMovie } from '../models/TheMovieDB/MovieDBMovie';
-import { MovieDBGenre } from '../models/TheMovieDB/MovieDBGenre';
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +46,8 @@ export class FactoryService {
     return new DeleteCollectionDto(collectionId);
   }
 
-  public createAddMovieDto(uid: number, collectionId: number, movie: MovieDto) : AddMovieDto {
-    return new AddMovieDto(uid, collectionId, movie);
+  public createAddMovieDto(uid: number, collectionId: number, movieId: number) : AddMovieDto {
+    return new AddMovieDto(uid, collectionId, movieId);
   }
 
   public createRemoveMovieDto(collectionId: number, movieId: number) : RemoveMovieDto {
@@ -63,8 +58,8 @@ export class FactoryService {
     return new EditCollectionInfoDto(uid, id, name, description);
   }
 
-  public createRatingDto(uid: number, value: number, review: string, movie: MovieDto) : RatingDto {
-    return new RatingDto(uid, value, review, movie);
+  public createRatingDto(uid: number, value: number, review: string, movieId: number) : RatingDto {
+    return new RatingDto(uid, value, review, movieId);
   }
 
   public createWatchlistDto(uid: number, movie: MovieDto) : WatchlistDto {
@@ -73,23 +68,6 @@ export class FactoryService {
 
   public createFavoritesDto(uid: number, movie: MovieDto) : FavoritesDto {
     return new FavoritesDto(uid, movie);
-  }
-
-  public createMovieDto(movie: MovieDBMovie) : MovieDto {
-
-    let genres = this.createGenreDtos(movie.genres);
-
-      return new MovieDto(-1, movie.title, movie.overview, movie.runtime, movie.release_date,
-        movie.imdb_id, movie.id, movie.backdrop_path, movie.poster_path, movie.budget,
-        movie.original_language, movie.popularity, genres);
-  }
-
-  public createGenreDtos(genres: MovieDBGenre[]) : GenreDto[] {
-    let genreDtos : GenreDto[] = [];
-
-    genres.forEach((genre: Genre) => {genreDtos.push(new GenreDto(genre.id, genre.name))});
-
-    return genreDtos;
   }
 
   public createDeleteMovieRatingDto(uid: number, movieId: number) {

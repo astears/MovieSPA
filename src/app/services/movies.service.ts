@@ -7,6 +7,7 @@ import { FactoryService } from './factory.service';
 import { MOVIEAPI } from '../constants/StringConstants';
 import { PageService } from './page.service';
 import { Movie } from '../models/zMoviesAPI/Movie';
+import { pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,10 @@ export class MoviesService {
   public searchMovieByKeyword(keyword: string) {
     console.log(keyword);
     return this.httpClient.get(`https://api.themoviedb.org/3/search/movie?api_key=fe154f97538186642f6f894b1181689f&language=en-US&query=${keyword}&page=1&include_adult=false`);
+  }
+
+  public getMovieBackdrop(movieId: number) : Observable<string> {
+    return this.httpClient.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=fe154f97538186642f6f894b1181689f&language=en-US`).pipe(pluck('backdropPath'));
   }
 
   public getActiveCategory() {

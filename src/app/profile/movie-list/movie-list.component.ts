@@ -41,7 +41,7 @@ export class MovieListComponent implements OnInit {
 
   public removeMovie() {
     console.log(this.movieToRemove);
-    this.movieCollectionsService.removeMovieFromCollection(this.collectionId, this.movieToRemove.id).subscribe(
+    this.movieCollectionsService.removeMovieFromCollection(this.collectionId, this.movieToRemove.movieId).subscribe(
       (data: any) => {
         this.getMovies();
       }, (err: any) => {console.log(err);}
